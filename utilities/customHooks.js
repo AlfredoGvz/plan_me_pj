@@ -28,3 +28,27 @@ export function useGetEvents(endpoint) {
 
   return { eventsData, isLoading, error };
 }
+
+export function useGetEventById(event_id, endpoint) {
+  const [eventByIdData, setEventByIdData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchEventById = async () => {
+      try {
+        const response = await axios.get(
+          `https://sql-be-test.onrender.com${endpoint}/${event_id}`
+        );
+        if (response && response.data && response.data.event) {
+          setEventByIdData(response.data.event); // Correctly set the data from response
+        }
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchEventById();
+  }, [event_id]);
+  return { eventByIdData, isLoading, error };
+}

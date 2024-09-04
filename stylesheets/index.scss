@@ -32,13 +32,133 @@
   font-weight: 400;
   font-style: normal;
 }
+body {
+  font-family: "Poppins", sans-serif;
+}
+.scss_layout_tile {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  border-image: linear-gradient(
+      to right,
 
-.tile_event_page {
-  h1 {
-    font-weight: 600;
-    font-size: 2rem;
-    font-family: "Poppins", sans-serif;
+      #373437,
+      #4f4c52,
+      #676770,
+      #676770,
+      #676770,
+      #676770,
+      #4f4c52,
+      #373437,
+      #1f1d1e,
+      #000000
+    )
+    1;
+
+  div:nth-child(2) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
   }
-  div {
+
+  .tile_button_area {
+    // background-color: burlywood;
+    display: flex;
+    align-items: top;
+  }
+  .tile_button_area button {
+    height: fit-content;
+    border-image: linear-gradient(
+        to right,
+        #dcd5aa,
+        #e0d195,
+        #e5cb81,
+        #ebc56c,
+        #f3be58,
+        #f4b74b,
+        #f5af3e,
+        #f6a731,
+        #f09e28,
+        #e9961d,
+        #e38d11,
+        #dc8500
+      )
+      1;
+    border-image-slice: 1;
+    transition: border-image-width 0.3s ease-in-out,
+      border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  .tile_button_area button:hover {
+    background-color: #373437;
+    border-image: linear-gradient(
+        to right,
+
+        #676770,
+        #676770,
+        #676770,
+        #676770,
+        #4f4c52,
+        #676770,
+        #676770
+      )
+      1;
+  }
+
+  .general_details {
+    Link {
+      background-color: #e38d11;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+}
+
+.event_by_id_page {
+  .event_details,
+  .event_details > div {
+    text-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+  }
+  .event_details > div {
+    gap: 0.3rem;
+  }
+  .booking_spot_btn {
+    height: fit-content;
+    border-image: linear-gradient(
+        to right,
+        #dcd5aa,
+        #e0d195,
+        #e5cb81,
+        #ebc56c,
+        #f3be58,
+        #f4b74b,
+        #f5af3e,
+        #f6a731,
+        #f09e28,
+        #e9961d,
+        #e38d11,
+        #dc8500
+      )
+      1;
+    border-image-slice: 1;
+    transition: border-image-width 0.3s ease-in-out,
+      border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  .booking_spot_btn:hover {
+    background-color: #373437;
+    border-image: linear-gradient(
+        to right,
+
+        #676770,
+        #676770,
+        #676770,
+        #676770,
+        #4f4c52,
+        #676770,
+        #676770
+      )
+      1;
   }
 }
