@@ -5,4 +5,12 @@ export async function pingServer() {
   console.log(response);
 }
 
-// Ping the server every 10 minutes to keep it active (10 minutes = 600,000 milliseconds)
+export async function logOut() {
+  try {
+    await axios.post(`https://sql-be-test.onrender.com/api/sign_out`);
+    window.location.reload();
+    localStorage.removeItem("user");
+  } catch (error) {
+    console.log(error);
+  }
+}

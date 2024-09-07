@@ -10,8 +10,9 @@ import NavBarLinks from "./NavBarLinks";
 import { Button } from "../components/Components";
 import { useContext } from "react";
 import { MyContext } from "../../App";
-import { logOut } from "../../../utilities/customHooks";
+import { logOut } from "../../../utilities/utilities";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const NavBar = () => {
   const { toggle, setToggle, user } = useContext(MyContext);
@@ -24,7 +25,7 @@ const NavBar = () => {
         {/* Login button */}
         {!user ? (
           <Button
-            inner_text={"Login"}
+            inner_text={"Get Started"}
             onClick={() => {
               setToggle(!toggle);
             }}
@@ -47,6 +48,22 @@ const NavBar = () => {
           <Link>
             <IconInstagramOutline height={"1.5rem"} width={"1.5rem"} />
           </Link>
+          <button
+            className={user ? "block" : "hidden"}
+            onClick={async (e) => {
+              try {
+                await axios.delete(
+                  `https://sql-be-test.onrender.com/api/delete_user`
+                );
+                logOut();
+              } catch (error) {
+                // Optionally, handle error (e.g., show an error message)
+                console.error("Error deleting user:", error);
+              }
+            }}
+          >
+            Delete User
+          </button>
         </div>
       </div>
     </nav>
