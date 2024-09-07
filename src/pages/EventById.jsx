@@ -9,8 +9,11 @@ import {
   IconPersonCheck,
 } from "../assets/components/Icons";
 import { Button } from "../assets/components/Components";
-
+import { useContext } from "react";
+import { MyContext } from "../App";
+import LogInForm from "../assets/components/LogInForm";
 const EventById = () => {
+  const { toggle } = useContext(MyContext); // Ensure toggle is a boolean
   const { event_id } = useParams();
   const { eventByIdData, isLoading, error } = useGetEventById(
     event_id,
@@ -19,14 +22,17 @@ const EventById = () => {
 
   if (isLoading) {
     return (
-      <div>
-        <p>Loading...</p>
+      <div className="bg-black body-height flex justify-center items-center">
+        <div>
+          <div className="loader"></div>
+        </div>
       </div>
     );
   } else {
     return (
-      <div className="">
-        <div className="event_by_id_page w-[80%]  mx-auto my-6 py-[3rem]">
+      <div className="bg-black text-white body-height">
+        <LogInForm className={toggle ? "block" : "hidden"} />
+        <div className="event_by_id_page max-w-[80%] w-fit mx-auto  px-[10rem] py-[3rem]">
           <h1 className="text-[2rem]">{eventByIdData[0].title}</h1>
           <div className="event_details gap-5 my-5">
             <div>
@@ -62,13 +68,16 @@ const EventById = () => {
               </p>
             </div>
           </div>
-          <div>
+          <div className="my-8">
             <Button
-              innerText={"BOOK A SPOT"}
-              classNameBt={
+              inner_text={"BOOK A SPOT"}
+              className={
                 "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
               }
             />
+          </div>
+          <div className="leading-[1.8rem]">
+            <p>{eventByIdData[0].description}</p>
           </div>
         </div>
       </div>

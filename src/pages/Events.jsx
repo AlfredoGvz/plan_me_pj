@@ -1,13 +1,25 @@
 import { useGetEvents } from "../../utilities/customHooks";
 import { EventTile } from "../assets/components/Components";
-
+import { useContext } from "react";
+import { MyContext } from "../App";
+import LogInForm from "../assets/components/LogInForm";
 const Events = () => {
+  const { toggle } = useContext(MyContext); // Ensure toggle is a boolean
   const { eventsData, isLoading, error } = useGetEvents("/api/get_events");
-  if (isLoading) return <p>Loading events...</p>; // Display loading state
+  if (isLoading)
+    return (
+      <div className="bg-black body-height flex justify-center items-center">
+        <div>
+          <div className="loader"></div>
+        </div>
+      </div>
+    );
   if (error) return <p>Error loading events: {error.message}</p>; // Display error state
 
   return (
     <div className="bg-black text-white py-8">
+      <LogInForm className={toggle ? "block" : "hidden"} />
+
       <div className="w-11/12 m-auto">
         <div className="flex justify-center">
           <div className="w-[20%] my-2 py-5">
@@ -31,8 +43,9 @@ const Events = () => {
                     // ==================
                     generals={"scss_layout_tile border-b-[2px] py-5 my-2"}
                     buttonArea={"tile_button_area"} //
-                    classNameBt={"border-2 w-full px-5 py-3 whitespace-nowrap"}
+                    className={"border-2 w-full px-5 py-3 whitespace-nowrap"}
                     generalDetails={"general_details"}
+                    dateInfo={"flex flex-col"}
                   />
                 )
               )

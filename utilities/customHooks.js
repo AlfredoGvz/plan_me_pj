@@ -52,3 +52,68 @@ export function useGetEventById(event_id, endpoint) {
   }, [event_id]);
   return { eventByIdData, isLoading, error };
 }
+
+// export function useLogIn(endpoint, credentials, send) {
+//   const [userLogged, setUserLogged] = useState([]);
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const signUserIN = async () => {
+//       try {
+//         const logger = await axios.post(
+//           `https://sql-be-test.onrender.com${endpoint}`,
+//           credentials
+//         );
+
+//         setUserLogged(logger.data.user);
+//       } catch (error) {
+//         setError(error);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+//     signUserIN();
+//   }, [send]);
+
+//   return { userLogged, isLoading, error };
+// }
+
+export function useLogIn(endpoint, credentials, send, setSend) {
+  const [userLogged, setUserLogged] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (send) {
+      const signUserIn = async () => {
+        setIsLoading(true);
+        try {
+          const logger = await axios.post(
+            `https://sql-be-test.onrender.com${endpoint}`,
+            credentials
+          );
+          setUserLogged(logger.data.user);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setIsLoading(false);
+          setSend(false); // Reset send to false after request
+        }
+      };
+      signUserIn();
+    }
+  }, [send, credentials, endpoint, setSend]);
+
+  return { userLogged, isLoading, error };
+}
+
+export async function logOut() {
+  try {
+    await axios.post(`https://sql-be-test.onrender.com/api/sign_out`);
+    window.location.reload();
+    localStorage.removeItem("user");
+  } catch (error) {
+    console.log(error);
+  }
+}
