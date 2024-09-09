@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconCalendar, IconClock } from "./Icons";
+import { useAddToCalendar } from "../../../utilities/customHooks";
+import { useEffect, useState } from "react";
 
 export const Button = (props) => {
   return (
@@ -10,6 +12,19 @@ export const Button = (props) => {
 };
 
 export const EventTile = (props) => {
+  const [eventId, setEventId] = useState(null);
+  const { registered, isLoadingCal, errorCal } = useAddToCalendar(eventId);
+  const navigate = useNavigate();
+  const handleEvent = () => {
+    setEventId(props.eventId); // Set eventId
+  };
+
+  // Automatically navigate when registered URL is available
+  useEffect(() => {
+    if (registered) {
+      window.location.href = registered; // Navigate to the checkout URL
+    }
+  }, [registered, navigate]);
   return (
     <div className={props.generals}>
       <div className={props.dateInfo}>
@@ -31,7 +46,11 @@ export const EventTile = (props) => {
           <p>{props.city}</p>
         </div>
         <div className={props.buttonArea}>
-          <Button inner_text={props.action} className={props.className} />
+          <Button
+            inner_text={props.action}
+            className={props.className}
+            onClick={handleEvent}
+          />
         </div>
       </div>
     </div>

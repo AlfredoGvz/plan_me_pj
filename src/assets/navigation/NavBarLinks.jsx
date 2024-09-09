@@ -6,7 +6,7 @@ const NavBarLinks = (props) => {
   const { user } = useContext(MyContext);
   return (
     <nav className={props.className}>
-      <NavLink to="/">Home</NavLink>
+      <NavLink to="/">Dashboard</NavLink>
       <NavLink to="/events">Events</NavLink>
       {user &&
         user.data.user.dataTosend.userInDB[0].user_role !== "attendee" && (

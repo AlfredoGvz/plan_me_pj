@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function useGetEvents(endpoint) {
   const [eventsData, setEventsData] = useState([]); // Initialize as an empty array
@@ -137,4 +138,35 @@ export function useDeleteEvent(event_id) {
   }, [event_id]); // Re-run only when event_id changes
 
   return { isLoadingDel, errorDel };
+}
+
+export function useAddToCalendar(event_id) {
+  const [registered, setRegistered] = useState("");
+  const [isLoadingCal, setIsLoadingCal] = useState(false);
+  const [errorCal, setErrorCal] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!event_id) return; // Do nothing if event_id is not set
+
+    const addToCalendar = async () => {
+      setIsLoadingCal(true); // Set loading to true when the request starts
+      try {
+        const register = await axios.post(
+          `https://sql-be-test.onrender.com/api/${event_id}/register`
+        );
+        const checkoutURL = register.data.attendee.checkoutSession.url;
+        setRegistered(checkoutURL); // Set checkout URL
+      } catch (err) {
+        setErrorCal(err);
+        console.error("Error adding event to calendar:", err);
+      } finally {
+        setIsLoadingCal(false); // Set loading to false after the request
+      }
+    };
+
+    addToCalendar(); // Call the function to register for the event
+  }, [event_id]);
+
+  return { registered, isLoadingCal, errorCal };
 }

@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import RootLayout from "./Layout";
-import HomePage from "./pages/Home";
+import Dashbooard from "./pages/Dashboard";
 import Events from "./pages/Events";
 import EventById from "./pages/EventById";
 import LogInForm from "./assets/components/LogInForm";
@@ -17,7 +17,7 @@ export const MyContext = createContext();
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
-      <Route index element={<HomePage />} />
+      <Route index element={<Dashbooard />} />
       <Route path="events" element={<Events />} />
       <Route path="log_in" element={<LogInForm />} />
       <Route path="add_event" element={<AddEvent />} />
