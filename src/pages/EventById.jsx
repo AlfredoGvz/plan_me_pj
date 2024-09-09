@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { useGetEventById } from "../../utilities/customHooks";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDeleteEvent, useGetEventById } from "../../utilities/customHooks";
 import {
   IconBxBuildingHouse,
   IconCalendar,
@@ -8,17 +8,32 @@ import {
   IconTicketOutline,
   IconPersonCheck,
 } from "../assets/components/Icons";
-import { Button } from "../assets/components/Components";
-import { useContext } from "react";
+
+import { Button, Modal } from "../assets/components/Components";
+import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../App";
 import LogInForm from "../assets/components/LogInForm";
+
 const EventById = () => {
-  const { toggle } = useContext(MyContext); // Ensure toggle is a boolean
+  const { toggle, user } = useContext(MyContext); // Ensure toggle is a boolean
   const { event_id } = useParams();
   const { eventByIdData, isLoading, error } = useGetEventById(
     event_id,
     "/api/get_events"
   );
+  const [eventToDelete, setEventToDelete] = useState(null);
+  const { isLoadingDel, errorDel } = useDeleteEvent(eventToDelete);
+  const navigate = useNavigate();
+  const handleDelete = () => {
+    setEventToDelete(event_id); // Set the event to delete
+  };
+
+  useEffect(() => {
+    if (!isLoadingDel && eventToDelete && !errorDel) {
+      // Only navigate when deletion completes and no errors occur
+      navigate("/events");
+    }
+  }, [isLoadingDel, eventToDelete, errorDel, navigate]);
 
   if (isLoading) {
     return (
@@ -37,7 +52,6 @@ const EventById = () => {
           <div className="event_details gap-5 my-5">
             <div>
               <IconCalendar />
-              <p>{eventByIdData[0].date}</p>
             </div>
             <div>
               <IconClock />
@@ -78,6 +92,20 @@ const EventById = () => {
           </div>
           <div className="leading-[1.8rem]">
             <p>{eventByIdData[0].description}</p>
+          </div>
+          <div
+            className={
+              eventByIdData[0]?.organizer_id ===
+              user?.data?.user?.dataTosend?.userInDB[0]?.user_id
+                ? "block"
+                : "hidden"
+            }
+          >
+            <Modal
+              delMSG={`You are about to delete this event.`}
+              btnDelMSG={isLoading ? "Deleting..." : "Delete Event"}
+              handle_delete={handleDelete}
+            />
           </div>
         </div>
       </div>

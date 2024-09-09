@@ -81,3 +81,60 @@ export function useLogIn(endpoint, credentials, send, setSend) {
 
   return { userLogged, isLoading, error };
 }
+export function useSender(endpoint, event) {
+  const [isLoading, setIsLoading] = useState(false); // Start as false
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // Only attempt to send the event if event is defined
+    if (!event) return;
+
+    const sendEvent = async () => {
+      setIsLoading(true); // Set loading to true when the request starts
+      try {
+        const logger = await axios.post(
+          `https://sql-be-test.onrender.com${endpoint}`,
+          event
+        );
+        console.log("Event sent successfully", logger.data);
+      } catch (err) {
+        setError(err);
+        console.error("Error sending event:", err);
+      } finally {
+        setIsLoading(false); // Set loading to false after the request
+      }
+    };
+
+    sendEvent(); // Call the function to send the event
+  }, [endpoint, event]); // Re-run when endpoint or event changes
+
+  return { isLoading, error };
+}
+
+export function useDeleteEvent(event_id) {
+  const [isLoadingDel, setIsLoadingDel] = useState(false); // Start as false
+  const [errorDel, setErrorDel] = useState(null);
+
+  useEffect(() => {
+    if (!event_id) return; // Do nothing if event_id is not set
+
+    const sendEvent = async () => {
+      setIsLoadingDel(true); // Set loading to true when the request starts
+      try {
+        const del = await axios.delete(
+          `https://sql-be-test.onrender.com/api/${event_id}/delete_event`
+        );
+        console.log("Event deleted successfully", del);
+      } catch (err) {
+        setErrorDel(err);
+        console.error("Error deleting event:", err);
+      } finally {
+        setIsLoadingDel(false); // Set loading to false after the request
+      }
+    };
+
+    sendEvent(); // Call the function to delete the event
+  }, [event_id]); // Re-run only when event_id changes
+
+  return { isLoadingDel, errorDel };
+}

@@ -84,22 +84,27 @@ body {
       1;
     border-image-slice: 1;
     transition: border-image-width 0.3s ease-in-out,
-      border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  }
-  .tile_button_area button:hover {
-    background-color: #373437;
-    border-image: linear-gradient(
-        to right,
+      border-image-source 0.3s ease-in-out,
+      background-color 0.3s ease-in-out transform 0.1s ease-in-out; // Add transition for transform
 
-        #676770,
-        #676770,
-        #676770,
-        #676770,
-        #4f4c52,
-        #676770,
-        #676770
-      )
-      1;
+    &:active {
+      transform: scale(0.98); // Scale down to 95% on click
+    }
+    &:hover {
+      background-color: #373437;
+      border-image: linear-gradient(
+          to right,
+
+          #676770,
+          #676770,
+          #676770,
+          #676770,
+          #4f4c52,
+          #676770,
+          #676770
+        )
+        1;
+    }
   }
 
   .general_details {
@@ -144,46 +149,61 @@ body {
       1;
     border-image-slice: 1;
     transition: border-image-width 0.3s ease-in-out,
-      border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out;
-  }
-  .booking_spot_btn:hover {
-    background-color: #373437;
-    border-image: linear-gradient(
-        to right,
+      border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out,
+      transform 0.1s ease-in-out; // Add transition for transform
 
-        #676770,
-        #676770,
-        #676770,
-        #676770,
-        #4f4c52,
-        #676770,
-        #676770
-      )
-      1;
+    &:active {
+      transform: scale(0.98); // Scale down to 95% on click
+    }
+    &:hover {
+      background-color: #373437;
+      border-image: linear-gradient(
+          to right,
+
+          #676770,
+          #676770,
+          #676770,
+          #676770,
+          #4f4c52,
+          #676770,
+          #676770
+        )
+        1;
+    }
   }
 }
-.border_style {
+
+.alert_btn {
   height: fit-content;
   border-image: linear-gradient(
       to right,
-      #dcd5aa,
-      #e0d195,
-      #e5cb81,
-      #ebc56c,
-      #f3be58,
-      #f4b74b,
-      #f5af3e,
-      #f6a731,
-      #f09e28,
-      #e9961d,
-      #e38d11,
-      #dc8500
+      #f89090,
+      #f78180,
+      #f57270,
+      #f36360,
+      #ef524f,
+      #ee4744,
+      #ec3c39,
+      #ea2f2d,
+      #ea2724,
+      #ea1e1b,
+      #ea120f,
+      #e90000
     )
     1;
   border-image-slice: 1;
   transition: border-image-width 0.3s ease-in-out,
-    border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    transform 0.1s ease-in-out; // Add transition for transform
+
+  &:active {
+    transform: scale(0.98); // Scale down to 95% on click
+  }
+  &:hover {
+    background-color: #373437;
+  }
 }
+
 .loader {
   width: 55px;
   aspect-ratio: 1;

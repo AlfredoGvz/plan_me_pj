@@ -16,6 +16,7 @@ import axios from "axios";
 
 const NavBar = () => {
   const { toggle, setToggle, user } = useContext(MyContext);
+  console.log(user);
   const navigate = useNavigate();
   return (
     <nav className="flex justify-between items-center text-white py-4 bg-black px-20  h-24">
