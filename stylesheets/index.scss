@@ -204,6 +204,16 @@ body {
   }
 }
 
+//Dashboard buttons
+.buttons_grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.buttons_grid button:last-child {
+  grid-column: span 3; /* Make the last button span all 3 columns */
+}
 .loader {
   width: 55px;
   aspect-ratio: 1;

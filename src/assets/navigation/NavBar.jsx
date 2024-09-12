@@ -7,16 +7,15 @@ import {
 } from "../components/Icons";
 
 import NavBarLinks from "./NavBarLinks";
-import { Button } from "../components/Components";
+import { Button, EmptyModal } from "../components/Components";
 import { useContext } from "react";
 import { MyContext } from "../../App";
 import { logOut } from "../../../utilities/utilities";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const NavBar = () => {
-  const { toggle, setToggle, user } = useContext(MyContext);
-  console.log(user);
+  const { user } = useContext(MyContext);
+
   const navigate = useNavigate();
   return (
     <nav className="flex justify-between items-center text-white py-4 bg-black px-20  h-24">
@@ -25,18 +24,25 @@ const NavBar = () => {
       <div className="flex gap-2">
         {/* Login button */}
         {!user ? (
-          <Button
-            inner_text={"Get Started"}
-            onClick={() => {
-              setToggle(!toggle);
-            }}
+          // <Button
+          //   inner_text={"Get Started"}
+          //   onClick={() => {
+          //     setToggle(!toggle);
+          //   }}
+          // />
+
+          <EmptyModal
+            btnDelMSG={"Get Started"}
+            input_styles={
+              "bg-[#778da9] flex rounded-md w-full px-[.5rem] py-[.5rem]"
+            }
           />
         ) : (
           <Button
             inner_text={"Logout"}
             onClick={() => {
               logOut();
-              navigate("/");
+              navigate("/events");
             }}
           />
         )}
@@ -49,22 +55,6 @@ const NavBar = () => {
           <Link>
             <IconInstagramOutline height={"1.5rem"} width={"1.5rem"} />
           </Link>
-          <button
-            className={user ? "block" : "hidden"}
-            onClick={async (e) => {
-              try {
-                await axios.delete(
-                  `https://sql-be-test.onrender.com/api/delete_user`
-                );
-                logOut();
-              } catch (error) {
-                // Optionally, handle error (e.g., show an error message)
-                console.error("Error deleting user:", error);
-              }
-            }}
-          >
-            Delete User
-          </button>
         </div>
       </div>
     </nav>

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IconCalendar, IconClock } from "./Icons";
 import { useAddToCalendar } from "../../../utilities/customHooks";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
 export const Button = (props) => {
   return (
     <button className={props.className} {...props}>
@@ -118,6 +118,192 @@ export function Modal(props) {
               onClick={props.handle_delete}
             />
           </div>
+        </div>
+      </dialog>
+    </div>
+  );
+}
+
+export function EmptyModal(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [userRole, setUserRole] = useState("");
+  const signInCredentials = {
+    email,
+    password,
+  };
+  const signUpCredentials = {
+    user_email: email,
+    password: password,
+    user_name: name + " " + surname,
+    user_role: userRole,
+  };
+  const [toggleForms, setToggleForms] = useState("sign in");
+
+  const navigate = useNavigate(); // Call useNavigate inside the component
+
+  const sendLogInCredentials = async (signInCredentials) => {
+    try {
+      const loggedUser = await axios.post(
+        `https://sql-be-test.onrender.com/api/sign_in`,
+        signInCredentials
+      );
+      localStorage.setItem("user", JSON.stringify(loggedUser));
+      navigate("/"); // Redirect after successful login
+      window.location.reload();
+      console.log(loggedUser);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const sendSignUpCredentials = async (signUpCredentials) => {
+    try {
+      const loggedUser = await axios.post(
+        `https://sql-be-test.onrender.com/api/new_user`,
+        signUpCredentials
+      );
+      navigate("/events"); // Redirect after successful login
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <div>
+      <Button
+        className={"px-5 py-3 whitespace-nowrap"}
+        inner_text={props.btnDelMSG}
+        onClick={() => document.getElementById("my_modal_3").showModal()}
+      />
+
+      <dialog id="my_modal_3" className="modal">
+        <div className="modal-box">
+          <div className="mx-auto mb-9 p-4 text-stone-950 bg-[linear-gradient(to_right,__#ff6800,_#dd3557,_#943571,_#45355d,_#1d222b)] rounded-md">
+            {toggleForms.toUpperCase()}
+          </div>
+          <form method="dialog" className="flex flex-col gap-4 p-2">
+            {/* if there is a button in form, it will close the modal */}
+            <button
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              onClick={() => {
+                setEmail(""),
+                  setPassword(""),
+                  setName(""),
+                  setSurname(""),
+                  setUserRole("");
+              }}
+            >
+              ✕
+            </button>
+            <div>
+              <div className={toggleForms === "sign in" ? "hidden" : "block"}>
+                <div className="flex gap-4">
+                  <InputField
+                    value={name}
+                    className={props.input_styles}
+                    labelvalue={"Name"}
+                    id={"name_input"}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                  <InputField
+                    value={surname}
+                    className={props.input_styles}
+                    labelvalue={"Surname"}
+                    id={"surname_input"}
+                    onChange={(e) => {
+                      setSurname(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="flex gap-5 my-4">
+                  <div className="flex gap-1">
+                    <input
+                      type="radio"
+                      id="option1"
+                      name="choice"
+                      value="attendee"
+                      onClick={(e) => {
+                        const value = e.target.value;
+                        setUserRole(value);
+                      }}
+                    />
+                    <label htmlFor="option1">Attendee</label>
+                  </div>
+                  <div className="flex gap-1">
+                    <input
+                      type="radio"
+                      id="option2"
+                      name="choice"
+                      value="organizer"
+                      onClick={(e) => {
+                        const value = e.target.value;
+                        setUserRole(value);
+                      }}
+                    />{" "}
+                    <label htmlFor="option2">Organizer</label>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col  gap-4">
+                <InputField
+                  value={email}
+                  className={props.input_styles}
+                  id={"email_input"}
+                  labelvalue={"Email"}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+                <InputField
+                  value={password}
+                  className={props.input_styles}
+                  type={"password"}
+                  id={"password_input"}
+                  labelvalue={"Password"}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <Button
+                className={
+                  "border_style border-2 px-5 py-3 whitespace-nowrap w-[40%] mx-auto"
+                }
+                inner_text={toggleForms === "sign in" ? "Login" : "Sign Up"}
+                onClick={() => {
+                  if (toggleForms === "sign in") {
+                    sendLogInCredentials(signInCredentials); // Send credentials and handle login
+                  } else {
+                    sendSignUpCredentials(signUpCredentials);
+                  }
+                }}
+              />
+              <div className="divider">OR</div>
+              <button
+                className="mb-5"
+                to={"new_account"}
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  if (toggleForms === "sign in") {
+                    setToggleForms("sign up");
+                  } else if (toggleForms === "sign up") {
+                    setToggleForms("sign in");
+                  }
+                }}
+              >
+                {toggleForms === "sign in"
+                  ? "Create Account"
+                  : "Sign in to your account "}
+              </button>
+            </div>
+          </form>
         </div>
       </dialog>
     </div>
