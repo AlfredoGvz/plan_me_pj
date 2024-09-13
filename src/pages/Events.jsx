@@ -1,10 +1,6 @@
 import { useGetEvents } from "../../utilities/customHooks";
 import { EventTile } from "../assets/components/Components";
-import { useContext } from "react";
-import { MyContext } from "../App";
-import LogInForm from "../assets/components/LogInForm";
 const Events = () => {
-  const { toggle } = useContext(MyContext); // Ensure toggle is a boolean
   const { eventsData, isLoading, error } = useGetEvents("/api/get_events");
   if (isLoading)
     return (
@@ -18,8 +14,6 @@ const Events = () => {
 
   return (
     <div className="bg-black text-white py-8">
-      <LogInForm className={toggle ? "block" : "hidden"} />
-
       <div className="w-11/12 m-auto">
         <div className="flex justify-center">
           <div className="w-[20%] my-2 py-5">

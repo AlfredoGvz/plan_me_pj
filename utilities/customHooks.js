@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function useGetEvents(endpoint) {
+export function useGetEvents(endpoint, filters) {
   const [eventsData, setEventsData] = useState([]); // Initialize as an empty array
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,10 @@ export function useGetEvents(endpoint) {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `https://sql-be-test.onrender.com${endpoint}`
+          `https://sql-be-test.onrender.com${endpoint}`,
+          {
+            params: filters, // Pass filters as query params
+          }
         );
 
         if (response && response.data && response.data.events) {
@@ -25,7 +28,7 @@ export function useGetEvents(endpoint) {
     };
 
     fetchEvents();
-  }, [endpoint]);
+  }, [endpoint, filters]);
 
   return { eventsData, isLoading, error };
 }

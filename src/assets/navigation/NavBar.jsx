@@ -24,13 +24,6 @@ const NavBar = () => {
       <div className="flex gap-2">
         {/* Login button */}
         {!user ? (
-          // <Button
-          //   inner_text={"Get Started"}
-          //   onClick={() => {
-          //     setToggle(!toggle);
-          //   }}
-          // />
-
           <EmptyModal
             btnDelMSG={"Get Started"}
             input_styles={

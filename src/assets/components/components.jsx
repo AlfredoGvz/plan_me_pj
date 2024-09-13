@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { IconCalendar, IconClock } from "./Icons";
-import { useAddToCalendar } from "../../../utilities/customHooks";
-import { useEffect, useState } from "react";
+import { useAddToCalendar, useGetEvents } from "../../../utilities/customHooks";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { MyContext } from "../../App";
+
 export const Button = (props) => {
   return (
     <button className={props.className} {...props}>
@@ -306,6 +308,36 @@ export function EmptyModal(props) {
           </form>
         </div>
       </dialog>
+    </div>
+  );
+}
+
+export function TabContent(props) {
+  return (
+    <div role="tablist" className={props.className}>
+      <input
+        type="radio"
+        name="my_tabs_1"
+        role="tab"
+        className="tab w-[fit-content]"
+        aria-label="Hosted Events"
+        defaultChecked
+        onClick={"handleHostedEvents"}
+      />
+      <div role="tabpanel" className="tab-content">
+        <div className="h-[70vh] bg-db-tabs"></div>
+      </div>
+
+      <input
+        type="radio"
+        name="my_tabs_1"
+        role="tab"
+        className="tab w-[5rem]"
+        aria-label="My next meetings"
+      />
+      <div role="tabpanel" className="tab-content">
+        <div className="h-[70vh] bg-db-tabs"></div>
+      </div>
     </div>
   );
 }
