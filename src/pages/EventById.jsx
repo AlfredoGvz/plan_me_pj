@@ -37,7 +37,7 @@ const EventById = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-black body-height flex justify-center items-center">
+      <div className="body-height flex justify-center items-center">
         <div>
           <div className="loader"></div>
         </div>
@@ -45,7 +45,7 @@ const EventById = () => {
     );
   } else {
     return (
-      <div className="bg-black text-white body-height">
+      <div className="text-white body-height">
         <LogInForm className={toggle ? "block" : "hidden"} />
         <div className="event_by_id_page max-w-[80%] w-fit mx-auto  px-[10rem] py-[3rem]">
           <h1 className="text-[2rem]">{eventByIdData[0].title}</h1>

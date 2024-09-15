@@ -1,10 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { IconCalendar, IconClock, IconLink } from "./Icons";
-import { useAddToCalendar, useGetEvents } from "../../../utilities/customHooks";
-import { useContext, useEffect, useState } from "react";
+import {
+  IconCalendar,
+  IconClock,
+  IconLink,
+  IconLocationOutline,
+} from "./Icons";
+import { useAddToCalendar } from "../../../utilities/customHooks";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { MyContext } from "../../App";
-
 export const Button = (props) => {
   return (
     <button className={props.className} {...props}>
@@ -45,7 +48,10 @@ export const EventTile = (props) => {
       <div className={props.generalsRight}>
         <div className={props.generalDetails}>
           <Link to={`/events/${props.eventId}/details`}>{props.title}</Link>
-          <p>{props.city}</p>
+          <p>
+            <IconLocationOutline />
+            {props.city}
+          </p>
         </div>
         <div className={props.buttonArea}>
           <Button
@@ -85,10 +91,10 @@ export function Modal(props) {
           "alert_btn border-2 px-5 py-3 whitespace-nowrap transition-all duration-[200ms]"
         }
         inner_text={props.btnDelMSG}
-        onClick={() => document.getElementById("my_modal_3").showModal()}
+        onClick={() => document.getElementById(props.modal_id).showModal()}
       />
 
-      <dialog id="my_modal_3" className="modal">
+      <dialog id={props.modal_id} className="modal">
         <div className="modal-box">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
@@ -316,22 +322,22 @@ export function TabContent(props) {
   return (
     <div
       role="tablist"
-      className={` tabs tabs-lifted grid grid-cols-[repeat(2,_49.55%)] ${props.className} `}
+      className={` tabs tabs-lifted grid tablet:grid-cols-[1fr_1fr_1fr] ${props.className} `}
     >
       <input
         type="radio"
         name="my_tabs_1"
         role="tab"
-        className="tab w-full [--tab-bg:black] [--tab-border-color:black]"
+        className="tab [--tab-bg:#003554] [--tab-border-color:#003554]"
         aria-label="Hosted Events"
         defaultChecked
       />
       <div role="tabpanel" className="tab-content ">
-        <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-black">
-          {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
+        <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-12 rounded-lg rounded-tl-none">
+          {/* {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
             props.my_events.map((currentItem, index) => (
-              <div key={index} className="flex mt-6 gap-4 w-[90%]">
-                <div className="flex flex-col gap-2">
+              <div className="mt-6 gap-4 bg-rose-600 text-[1.125rem] p-4 w-full grid grid-cols-1 mobil:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-[20%_40%_10%]">
+                <div className="flex flex-col gap-2 tablet:block hidden">
                   <p className="flex items-center gap-2">
                     <IconCalendar />
                     {currentItem.date}
@@ -349,13 +355,34 @@ export function TabContent(props) {
                     <IconLink />
                     {currentItem.title}
                   </Link>
-                  <p>{currentItem.city}</p>
+                  <p className="flex items-center gap-2">
+                    {" "}
+                    <IconLocationOutline />
+                    {currentItem.city}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 tablet:hidden block">
+                  <p className="flex items-center gap-2">
+                    <IconCalendar />
+                    {currentItem.date}
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <IconClock />
+                    {currentItem.start_time}
+                  </p>
+                </div>
+                <div>
+                  <Modal
+                    btnDelMSG="DELETE EVENT"
+                    delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
+                    modal_id={"del_evn_mod"}
+                  />
                 </div>
               </div>
             ))
           ) : (
             <p className="m-auto">No events available.</p>
-          )}
+          )} */}
         </div>
       </div>
 
@@ -363,11 +390,11 @@ export function TabContent(props) {
         type="radio"
         name="my_tabs_1"
         role="tab"
-        className="tab w-full [--tab-bg:black] [--tab-border-color:black]"
+        className="tab [--tab-bg:#003554] [--tab-border-color:#003554] "
         aria-label="My next meetings"
       />
-      <div role="tabpanel" className="tab-content">
-        <div className="h-[70vh] flex flex-col  gap-4 items-center text-[.9rem] sm:text-[1.2rem] bg-black"></div>
+      <div role="tabpanel" className="tab-content ">
+        <div className="h-[70vh] text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] rounded-lg"></div>
       </div>
     </div>
   );

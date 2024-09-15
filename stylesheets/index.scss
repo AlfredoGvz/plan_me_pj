@@ -125,7 +125,6 @@ body {
 */
 
 /* === Welcome Panel === */
-
 .welcome_panel {
   display: flex;
   justify-content: space-between;
@@ -149,7 +148,7 @@ body {
   );
 }
 
-//====> Control buttons
+/* === Control buttons === */
 .buttons_grid_org {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -167,6 +166,11 @@ body {
   grid-column: span 2; /* Make the last button span all 3 columns */
 }
 
+/* === Tabs === */
+
+/*
+** === END OF DASHBOARD CLASSES ===
+*/
 .loader {
   width: 55px;
   aspect-ratio: 1;

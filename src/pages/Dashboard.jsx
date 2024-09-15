@@ -5,7 +5,11 @@ import { logOut } from "../../utilities/utilities";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Modal, TabContent } from "../assets/components/Components";
-import { useGetHostedEvents } from "../../utilities/customHooks";
+import {
+  useDeleteEvent,
+  useGetHostedEvents,
+} from "../../utilities/customHooks";
+useDeleteEvent;
 // Ping the server every 10 minutes to keep it active (10 minutes = 600,000 milliseconds)
 const Dashbooard = () => {
   const { user } = useContext(MyContext);
@@ -26,7 +30,7 @@ const Dashbooard = () => {
   const firstName = name ? name.split(" ") : "";
   const navigate = useNavigate();
   return (
-    <div className="w-[90%] tablet:w-[80%] desktop:grid mx-auto grid-cols-[33%_67%] gap-8 h-[calc(100vh-96px)]">
+    <div className="w-[90%] tablet:w-[80%] desktop:grid mx-auto grid-cols-[35%_65%] gap-6 h-[calc(100vh-96px)]">
       {/* WELCOME PANEL*/}
       <div className="">
         <div className={"welcome_panel"}>
@@ -95,9 +99,10 @@ const Dashbooard = () => {
             </p>
 
             <Modal
-              btnDelMSG={"DELETE ACCOUNT"}
-              delMSG={"You are about to delete your account."}
+              btnDelMSG="DELETE ACCOUNT"
+              delMSG="You are about to delete your account. This action cannot be undone."
               handle_delete={handleDeleteUser}
+              modal_id={"del_acc_mod"}
             />
           </div>
         </div>
@@ -106,7 +111,7 @@ const Dashbooard = () => {
       <div className="flex gap-8">
         <div className=" w-full">
           <TabContent
-            className={"w-[100%] tabs tabs-bordered sm:tabs-lg lg:my-0"}
+            className={"w-[100%] tabs tabs-bordered tablet:tabs-lg lg:my-0"}
             my_events={hostedEvents}
           />
         </div>
