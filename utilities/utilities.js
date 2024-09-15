@@ -9,7 +9,7 @@ export async function logOut() {
   try {
     await axios.post(`https://sql-be-test.onrender.com/api/sign_out`);
     window.location.reload();
-    localStorage.removeItem("user");
+    localStorage.clear();
   } catch (error) {
     console.log(error);
   }

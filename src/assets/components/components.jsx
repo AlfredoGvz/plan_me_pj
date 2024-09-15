@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { IconCalendar, IconClock } from "./Icons";
+import { IconCalendar, IconClock, IconLink } from "./Icons";
 import { useAddToCalendar, useGetEvents } from "../../../utilities/customHooks";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -314,29 +314,60 @@ export function EmptyModal(props) {
 
 export function TabContent(props) {
   return (
-    <div role="tablist" className={props.className}>
+    <div
+      role="tablist"
+      className={` tabs tabs-lifted grid grid-cols-[repeat(2,_49.55%)] ${props.className} `}
+    >
       <input
         type="radio"
         name="my_tabs_1"
         role="tab"
-        className="tab w-[fit-content]"
+        className="tab w-full [--tab-bg:black] [--tab-border-color:black]"
         aria-label="Hosted Events"
         defaultChecked
-        onClick={"handleHostedEvents"}
       />
-      <div role="tabpanel" className="tab-content">
-        <div className="h-[70vh] bg-db-tabs"></div>
+      <div role="tabpanel" className="tab-content ">
+        <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-black">
+          {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
+            props.my_events.map((currentItem, index) => (
+              <div key={index} className="flex mt-6 gap-4 w-[90%]">
+                <div className="flex flex-col gap-2">
+                  <p className="flex items-center gap-2">
+                    <IconCalendar />
+                    {currentItem.date}
+                  </p>
+                  <p className="flex items-center gap-2">
+                    <IconClock />
+                    {currentItem.start_time}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 ">
+                  <Link
+                    to={`/events/${currentItem.event_id}/details`}
+                    className="flex items-center"
+                  >
+                    <IconLink />
+                    {currentItem.title}
+                  </Link>
+                  <p>{currentItem.city}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="m-auto">No events available.</p>
+          )}
+        </div>
       </div>
 
       <input
         type="radio"
         name="my_tabs_1"
         role="tab"
-        className="tab w-[5rem]"
+        className="tab w-full [--tab-bg:black] [--tab-border-color:black]"
         aria-label="My next meetings"
       />
       <div role="tabpanel" className="tab-content">
-        <div className="h-[70vh] bg-db-tabs"></div>
+        <div className="h-[70vh] flex flex-col  gap-4 items-center text-[.9rem] sm:text-[1.2rem] bg-black"></div>
       </div>
     </div>
   );

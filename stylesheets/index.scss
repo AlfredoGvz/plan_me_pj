@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.landing_bg {
-  background-image: url("https://images.unsplash.com/photo-1491542451321-54b31bd2d961?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-  background-position: center;
-  background-size: contain;
-}
-
 //Fonts
 .rampart-one-regular {
   font-family: "Londrina Shadow", sans-serif;
@@ -35,144 +29,39 @@
 body {
   font-family: "Poppins", sans-serif;
 }
-.scss_layout_tile {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
+.bg-db-tabs {
+  background: #000c14;
+}
+.booking_spot_btn {
+  height: fit-content;
   border-image: linear-gradient(
       to right,
-
-      #373437,
-      #4f4c52,
-      #676770,
-      #676770,
-      #676770,
-      #676770,
-      #4f4c52,
-      #373437,
-      #1f1d1e,
-      #000000
+      #dcd5aa,
+      #e0d195,
+      #e5cb81,
+      #ebc56c,
+      #f3be58,
+      #f4b74b,
+      #f5af3e,
+      #f6a731,
+      #f09e28,
+      #e9961d,
+      #e38d11,
+      #dc8500
     )
     1;
+  border-image-slice: 1;
+  transition: border-image-width 0.3s ease-in-out,
+    border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    transform 0.1s ease-in-out; // Add transition for transform
 
-  div:nth-child(2) {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+  &:active {
+    transform: scale(0.98); // Scale down to 95% on click
   }
-
-  .tile_button_area {
-    // background-color: burlywood;
-    display: flex;
-    align-items: top;
-  }
-  .tile_button_area button {
-    height: fit-content;
-    border-image: linear-gradient(
-        to right,
-        #dcd5aa,
-        #e0d195,
-        #e5cb81,
-        #ebc56c,
-        #f3be58,
-        #f4b74b,
-        #f5af3e,
-        #f6a731,
-        #f09e28,
-        #e9961d,
-        #e38d11,
-        #dc8500
-      )
-      1;
-    border-image-slice: 1;
-    transition: border-image-width 0.3s ease-in-out,
-      border-image-source 0.3s ease-in-out,
-      background-color 0.3s ease-in-out transform 0.1s ease-in-out; // Add transition for transform
-
-    &:active {
-      transform: scale(0.98); // Scale down to 95% on click
-    }
-    &:hover {
-      background-color: #373437;
-      border-image: linear-gradient(
-          to right,
-
-          #676770,
-          #676770,
-          #676770,
-          #676770,
-          #4f4c52,
-          #676770,
-          #676770
-        )
-        1;
-    }
-  }
-
-  .general_details {
-    Link {
-      background-color: #e38d11;
-    }
-
-    h1 {
-      font-size: 2rem;
-    }
+  &:hover {
+    background-color: #373437;
   }
 }
-
-.event_by_id_page {
-  .event_details,
-  .event_details > div {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-  }
-  .event_details > div {
-    gap: 0.3rem;
-  }
-
-  .booking_spot_btn {
-    height: fit-content;
-    border-image: linear-gradient(
-        to right,
-        #dcd5aa,
-        #e0d195,
-        #e5cb81,
-        #ebc56c,
-        #f3be58,
-        #f4b74b,
-        #f5af3e,
-        #f6a731,
-        #f09e28,
-        #e9961d,
-        #e38d11,
-        #dc8500
-      )
-      1;
-    border-image-slice: 1;
-    transition: border-image-width 0.3s ease-in-out,
-      border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out,
-      transform 0.1s ease-in-out; // Add transition for transform
-
-    &:active {
-      transform: scale(0.98); // Scale down to 95% on click
-    }
-    &:hover {
-      background-color: #373437;
-      border-image: linear-gradient(
-          to right,
-
-          #676770,
-          #676770,
-          #676770,
-          #676770,
-          #4f4c52,
-          #676770,
-          #676770
-        )
-        1;
-    }
-  }
-}
-
 .alert_btn {
   height: fit-content;
   border-image: linear-gradient(
@@ -203,23 +92,81 @@ body {
     background-color: #373437;
   }
 }
-
-//Dashboard buttons
-
-.bg-db-tabs {
-  background: #386fa4;
-  margin-block: 1rem;
-  border-radius: 10px;
+.buttons_grid_att {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
 }
-.buttons_grid {
+
+/*
+** === SMALL COMPONENTS CLASSES ===
+*/
+.modal_warning_strip {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  color: #252422; /* Equivalent to text-stone-950 */
+  font-weight: 600;
+  background-image: linear-gradient(
+    to right,
+    #ff6800,
+    #dd3557,
+    #943571,
+    #45355d,
+    #1d222b
+  );
+  border-radius: 0.375rem; /* Equivalent to rounded-md */
+}
+
+/*
+** === DASHBOARD CLASSES ===
+*/
+
+/* === Welcome Panel === */
+
+.welcome_panel {
+  display: flex;
+  justify-content: space-between;
+  background-color: #343a40;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-image: linear-gradient(
+    to right top,
+    #023047,
+    #07435d,
+    #0d5673,
+    #126b89,
+    #18809f,
+    #2a8dac,
+    #399bba,
+    #47a9c7,
+    #5bb1cf,
+    #6db9d7,
+    #7ec2de,
+    #8ecae6
+  );
+}
+
+//====> Control buttons
+.buttons_grid_org {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
 }
-
-.buttons_grid button:last-child {
+.buttons_grid_org button:last-child {
   grid-column: span 3; /* Make the last button span all 3 columns */
 }
+.buttons_grid_att {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+.buttons_grid_att button:last-child {
+  grid-column: span 2; /* Make the last button span all 3 columns */
+}
+
 .loader {
   width: 55px;
   aspect-ratio: 1;
@@ -269,6 +216,60 @@ body {
   gap: 2rem;
 }
 
-input {
-  color: black;
+/* Base layout for mobile devices */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  font-size: 0.9rem;
+  gap: 16px;
+
+  h1 {
+    transition: color 0.2s ease-in-out;
+    font-weight: 600;
+    @media (min-width: 390px) {
+      font-size: 1rem; // 'mobil' breakpoint
+    }
+
+    @media (min-width: 800px) {
+      font-size: 1.25rem; // 'tablet' breakpoint
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 1.5rem; // 'laptop' breakpoint
+    }
+
+    @media (min-width: 1280px) {
+      font-size: 1.6rem; // 'desktop' breakpoint
+    }
+  }
+
+  &:hover {
+    h1 {
+      color: #dc8500;
+    }
+  }
+}
+
+/* Tablet layout (for screens wider than 820px) */
+@media (min-width: 800px) {
+  .grid-container {
+    grid-template-columns: 1fr 2fr;
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+}
+.event-tile-with-border {
+  display: flex;
+  justify-content: space-between; // Ensures the date, title, and button are spaced correctly
+  align-items: center; // Vertically aligns the items
+  padding-bottom: 2rem; // Adds spacing to the bottom
+  border-bottom: 2px solid transparent; // Base border to work with
+  border-image: linear-gradient(90deg, #ff7e5f, #feb47b) 1; // Apply the gradient to the border
+}
+/* Laptop and desktop layout (for screens wider than 1024px) */
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: 20% 45% 15%;
+    font-size: 1rem;
+  }
 }

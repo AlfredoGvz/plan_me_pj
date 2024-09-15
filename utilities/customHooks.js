@@ -173,3 +173,35 @@ export function useAddToCalendar(event_id) {
 
   return { registered, isLoadingCal, errorCal };
 }
+
+export function useGetHostedEvents(endpoint) {
+  const [hostedEvents, setHostedEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchHostedEvents = async () => {
+      // Ensure endpoint exists before making API call
+      if (!endpoint) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `https://sql-be-test.onrender.com${endpoint}`
+        );
+        console.log(response);
+        setHostedEvents(response.data.myEvents); // Ensure you're accessing `myEvents` correctly from response
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchHostedEvents();
+  }, [endpoint]);
+
+  return { hostedEvents, isLoading, error };
+}

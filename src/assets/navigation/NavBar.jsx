@@ -18,7 +18,7 @@ const NavBar = () => {
 
   const navigate = useNavigate();
   return (
-    <nav className="flex justify-between items-center text-white py-4 bg-black px-20  h-24">
+    <nav className="flex justify-between items-center text-white py-4 px-20  h-24">
       <NavBarLinks className={"flex gap-6"} />
       <BrandLogo className={"rampart-one-regular text-[3rem]"} />
       <div className="flex gap-2">

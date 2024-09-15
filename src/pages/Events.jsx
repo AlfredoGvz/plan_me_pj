@@ -4,7 +4,7 @@ const Events = () => {
   const { eventsData, isLoading, error } = useGetEvents("/api/get_events");
   if (isLoading)
     return (
-      <div className="bg-black body-height flex justify-center items-center">
+      <div className=" body-height flex justify-center items-center">
         <div>
           <div className="loader"></div>
         </div>
@@ -13,7 +13,7 @@ const Events = () => {
   if (error) return <p>Error loading events: {error.message}</p>; // Display error state
 
   return (
-    <div className="bg-black text-white py-8">
+    <div className=" text-white py-8">
       <div className="w-11/12 m-auto">
         <div className="flex justify-center">
           <div className="w-[20%] my-2 py-5">
