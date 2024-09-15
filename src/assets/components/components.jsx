@@ -333,10 +333,13 @@ export function TabContent(props) {
         defaultChecked
       />
       <div role="tabpanel" className="tab-content ">
-        <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-12 rounded-lg rounded-tl-none">
-          {/* {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
+        <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-4 rounded-lg rounded-tl-none tabs_content">
+          {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
             props.my_events.map((currentItem, index) => (
-              <div className="mt-6 gap-4 bg-rose-600 text-[1.125rem] p-4 w-full grid grid-cols-1 mobil:grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-[20%_40%_10%]">
+              <div
+                className="mt-6 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] grid grid-cols-1 mobil:grid-cols-1 tablet:grid-cols-[50%_50%] laptop:grid-cols-[25%_30%_30%] justify-between"
+                key={index}
+              >
                 <div className="flex flex-col gap-2 tablet:block hidden">
                   <p className="flex items-center gap-2">
                     <IconCalendar />
@@ -347,7 +350,7 @@ export function TabContent(props) {
                     {currentItem.start_time}
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 ">
+                <div className="flex flex-col gap-2">
                   <Link
                     to={`/events/${currentItem.event_id}/details`}
                     className="flex items-center"
@@ -371,7 +374,7 @@ export function TabContent(props) {
                     {currentItem.start_time}
                   </p>
                 </div>
-                <div>
+                <div className=" mobil:mx-auto tablet:col-span-2 laptop:col-span-1">
                   <Modal
                     btnDelMSG="DELETE EVENT"
                     delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
@@ -382,7 +385,7 @@ export function TabContent(props) {
             ))
           ) : (
             <p className="m-auto">No events available.</p>
-          )} */}
+          )}
         </div>
       </div>
 
