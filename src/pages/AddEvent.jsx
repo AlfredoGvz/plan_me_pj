@@ -57,6 +57,7 @@ const AddEvent = () => {
             id={"name"}
             placeholder={"E.g. Classical Music Club"}
             onChange={(e) => setEventTitle(e.target.value)}
+            className={"input input-bordered w-full max-w-xs"}
           />
         </div>
         <div>
@@ -64,6 +65,7 @@ const AddEvent = () => {
             labelvalue={"Event Description"}
             id={"event_description"}
             placeholder={"Please provide an event description here. "}
+            className={"textarea textarea-bordered textarea-lg w-full max-w-xs"}
             onChange={(e) => setEventDescription(e.target.value)}
           />
         </div>
@@ -73,14 +75,14 @@ const AddEvent = () => {
             id={"start_time"}
             type={"time"}
             onChange={(e) => setStartTime(e.target.value)}
+            className={"input input-bordered max-w-xs"}
           />
-        </div>
-        <div>
           <InputField
             labelvalue={"Ends at"}
             id={"end_time"}
             type={"time"}
             onChange={(e) => setEndTime(e.target.value)}
+            className={"input input-bordered max-w-xs"}
           />
         </div>
         <div>
@@ -89,6 +91,7 @@ const AddEvent = () => {
             id={"date"}
             type={"date"}
             onChange={(e) => setDate(e.target.value)}
+            className={"input input-bordered max-w-xs"}
           />
         </div>
         <div>
@@ -96,6 +99,7 @@ const AddEvent = () => {
             labelvalue={"Venue"}
             id={"venue"}
             onChange={(e) => setVenue(e.target.value)}
+            className={"input input-bordered  max-w-xs"}
           />
         </div>
         <div>
@@ -103,6 +107,7 @@ const AddEvent = () => {
             labelvalue={"Price"}
             id={"price"}
             onChange={(e) => setPrice(e.target.value)}
+            className={"input input-bordered max-w-xs"}
           />
         </div>
         <div>
@@ -110,6 +115,7 @@ const AddEvent = () => {
             labelvalue={"Address"}
             id={"address"}
             onChange={(e) => setAddress(e.target.value)}
+            className={"input input-bordered w-full max-w-xs"}
           />
         </div>
         <div>
@@ -117,6 +123,7 @@ const AddEvent = () => {
             labelvalue={"City"}
             id={"city"}
             onChange={(e) => setCity(e.target.value)}
+            className={"input input-bordered w-full max-w-xs"}
           />
         </div>
         <div>
@@ -124,6 +131,7 @@ const AddEvent = () => {
             labelvalue={"Post Code"}
             id={"post_code"}
             onChange={(e) => setPostCode(e.target.value)}
+            className={"input input-bordered w-full max-w-xs"}
           />
         </div>
         <Button inner_text={"Post Event"} onClick={handlePostEvent} />
