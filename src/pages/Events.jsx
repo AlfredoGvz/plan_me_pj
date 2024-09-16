@@ -13,13 +13,15 @@ const Events = () => {
   if (error) return <p>Error loading events: {error.message}</p>; // Display error state
 
   return (
-    <div className=" text-white py-8">
-      <div className="w-11/12 m-auto">
+    <div className="text-white py-8">
+      <div className="laptop:w-11/12 m-auto">
         <div className="flex justify-center">
           <div className="w-[20%] my-2 py-5">
-            <p className="text-[3rem] font-semibold">EVENTS</p>
+            <p className="text-[2.5rem] tablet:text-[3rem] vertical-text mx-[-1rem] laptop:mx-[0rem] fixed">
+              EVENTS
+            </p>
           </div>
-          <div className="w-[60%] flex flex-col gap-4">
+          <div className="tablet:w-[60%] w-[67%] flex flex-col gap-4">
             {Array.isArray(eventsData) && eventsData.length > 0 ? ( // Check if eventsData is an array and not empty
               eventsData.map(
                 (
@@ -33,13 +35,7 @@ const Events = () => {
                     start_time={currentItem.start_time}
                     title={currentItem.title}
                     city={currentItem.city}
-                    action={"ADD TO CALENDAR"}
-                    // ==================
-                    generals={"scss_layout_tile border-b-[2px] py-5 my-2"}
-                    buttonArea={"tile_button_area"} //
-                    className={"border-2 w-full px-5 py-3 whitespace-nowrap"}
-                    generalDetails={"general_details"}
-                    dateInfo={"flex flex-col"}
+                    action={"BOOK A SPOT"}
                   />
                 )
               )

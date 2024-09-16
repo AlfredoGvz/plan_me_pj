@@ -315,29 +315,8 @@ export function IconPersonCheck(props) {
 
 export function IconLocationOutline(props) {
   return (
-    <svg
-      viewBox="0 0 512 512"
-      fill="currentColor"
-      height="1em"
-      width="1em"
-      {...props}
-    >
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
-        d="M256 48c-79.5 0-144 61.39-144 137 0 87 96 224.87 131.25 272.49a15.77 15.77 0 0025.5 0C304 409.89 400 272.07 400 185c0-75.61-64.5-137-144-137z"
-      />
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
-        d="M304 192 A48 48 0 0 1 256 240 A48 48 0 0 1 208 192 A48 48 0 0 1 304 192 z"
-      />
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M18 4.48a8.45 8.45 0 00-12 12l5.27 5.28a1 1 0 001.42 0L18 16.43a8.45 8.45 0 000-11.95zM16.57 15L12 19.59 7.43 15a6.46 6.46 0 119.14 0zM9 7.41a4.32 4.32 0 000 6.1 4.31 4.31 0 007.36-3 4.24 4.24 0 00-1.26-3.05A4.3 4.3 0 009 7.41zm4.69 4.68a2.33 2.33 0 11.67-1.63 2.33 2.33 0 01-.72 1.63z" />
     </svg>
   );
 }
@@ -386,7 +365,7 @@ export function IconTicketOutline(props) {
 
 export function IconLink(props) {
   return (
-    <svg fill="none" viewBox="0 0 24 24" height="1em" width="1em" {...props}>
+    <svg fill="none" viewBox="0 0 24 24" {...props}>
       <path
         fill="currentColor"
         d="M14.828 12l1.415 1.414 2.828-2.828a4 4 0 00-5.657-5.657l-2.828 2.828L12 9.172l2.828-2.829a2 2 0 112.829 2.829L14.828 12zM12 14.829l1.414 1.414-2.828 2.828a4 4 0 01-5.657-5.657l2.828-2.828L9.172 12l-2.829 2.829a2 2 0 102.829 2.828L12 14.828z"

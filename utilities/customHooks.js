@@ -143,7 +143,7 @@ export function useDeleteEvent(event_id) {
   return { isLoadingDel, errorDel };
 }
 
-export function useAddToCalendar(event_id) {
+export function useAttendEvent(event_id) {
   const [registered, setRegistered] = useState("");
   const [isLoadingCal, setIsLoadingCal] = useState(false);
   const [errorCal, setErrorCal] = useState(null);

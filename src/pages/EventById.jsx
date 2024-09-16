@@ -12,7 +12,6 @@ import {
 import { Button, Modal } from "../assets/components/Components";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../App";
-import LogInForm from "../assets/components/LogInForm";
 
 const EventById = () => {
   const { toggle, user } = useContext(MyContext); // Ensure toggle is a boolean
@@ -45,40 +44,41 @@ const EventById = () => {
     );
   } else {
     return (
-      <div className="text-white body-height">
-        <LogInForm className={toggle ? "block" : "hidden"} />
-        <div className="event_by_id_page max-w-[80%] w-fit mx-auto  px-[10rem] py-[3rem]">
-          <h1 className="text-[2rem]">{eventByIdData[0].title}</h1>
-          <div className="event_details gap-5 my-5">
-            <div>
-              <IconCalendar />
+      <div className="text-white body-height w-[90%] laptop:w-[80%] mx-auto">
+        <div className="my-12">
+          <h1 className="text-[3rem]">{eventByIdData[0].title}</h1>
+          <div className="gap-5 my-5 grid mobile:grid-cols-[repeat(2,_1fr)] tablet:grid-cols-[repeat(3,_30%)]">
+            <div className="flex gap-1 laptop:gap-3 items-center">
+              <IconPersonCheck height={"1.5rem"} width={"1.5rem"} />
+              <p>{eventByIdData[0].organizer_name}</p>
             </div>
-            <div>
+            <div className="flex gap-1 laptop:gap-3 items-center">
+              <IconCalendar />
+              <p>{eventByIdData[0].date}</p>
+            </div>
+            <div className="flex gap-1 laptop:gap-3 items-center">
               <IconClock />
               <p>{eventByIdData[0].start_time} -</p>
               <p>{eventByIdData[0].end_time}</p>
             </div>
-            <div>
-              <IconPersonCheck height={"1.5rem"} width={"1.5rem"} />
-              <p>{eventByIdData[0].organizer_name}</p>
-            </div>
-            <div>
-              <IconBxBuildingHouse height={"1.5rem"} width={"1.5rem"} />{" "}
-              <p>{eventByIdData[0].venue}</p>
-            </div>
-            <div>
-              <IconLocationOutline height={"1.5rem"} width={"1.5rem"} />{" "}
-              <p>
-                {eventByIdData[0].address}, {eventByIdData[0].city},{" "}
-                {eventByIdData[0].post_code}
-              </p>
-            </div>
-            <div>
+            <div className="flex gap-1 laptop:gap-3 items-center">
               <IconTicketOutline height={"1.5rem"} width={"1.5rem"} />
               <p>
                 {eventByIdData[0].price === "Free"
                   ? ` ${eventByIdData[0].price}`
                   : ` £${eventByIdData[0].price}`}
+              </p>
+            </div>
+            <div className="flex gap-1 laptop:gap-3 items-center  col-span-2 tablet:col-span-1 ">
+              <IconBxBuildingHouse height={"1.5rem"} width={"1.5rem"} />{" "}
+              <p>{eventByIdData[0].venue}</p>
+            </div>
+
+            <div className="flex gap-1 laptop:gap-3 items-center col-span-2 tablet:col-span-1">
+              <IconLocationOutline height={"1.5rem"} width={"1.5rem"} />{" "}
+              <p>
+                {eventByIdData[0].address}, {eventByIdData[0].city},{" "}
+                {eventByIdData[0].post_code}
               </p>
             </div>
           </div>
@@ -102,9 +102,10 @@ const EventById = () => {
             }
           >
             <Modal
-              delMSG={`You are about to delete this event.`}
-              btnDelMSG={isLoading ? "Deleting..." : "Delete Event"}
+              btnDelMSG="DELETE THIS EVENT"
+              delMSG="You are about to delete your account. This action cannot be undone."
               handle_delete={handleDelete}
+              modal_id={""}
             />
           </div>
         </div>

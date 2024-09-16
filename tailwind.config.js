@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {},
     screens: {
-      mobil: "390px", // mobile breakpoint
+      mobile: "390px", // mobile breakpoint
       tablet: "800px", // tablet breakpoint
       laptop: "1024px", // laptop breakpoint
       desktop: "1280px", // desktop and above

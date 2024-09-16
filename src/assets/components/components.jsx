@@ -5,9 +5,10 @@ import {
   IconLink,
   IconLocationOutline,
 } from "./Icons";
-import { useAddToCalendar } from "../../../utilities/customHooks";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useAttendEvent } from "../../../utilities/customHooks";
 export const Button = (props) => {
   return (
     <button className={props.className} {...props}>
@@ -18,7 +19,7 @@ export const Button = (props) => {
 
 export const EventTile = (props) => {
   const [eventId, setEventId] = useState(null);
-  const { registered, isLoadingCal, errorCal } = useAddToCalendar(eventId);
+  const { registered, isLoadingCal, errorCal } = useAttendEvent(eventId);
   const navigate = useNavigate();
   const handleEvent = () => {
     setEventId(props.eventId); // Set eventId
@@ -31,35 +32,58 @@ export const EventTile = (props) => {
     }
   }, [registered, navigate]);
   return (
-    <div className={props.generals}>
-      <div className={props.dateInfo}>
-        <div className="flex flex-col gap-1">
-          <p className="flex items-center gap-2">
-            <IconCalendar />
-            {props.date}
-          </p>
-
-          <p className="flex items-center gap-2">
-            <IconClock />
-            {props.start_time}
-          </p>
-        </div>
+    <div
+      className={
+        "grid tablet:grid-cols-[1fr_2fr] laptop:grid-cols-[1fr_2fr_1fr] laptop:py-5 mobile:py-3 event-tile-gradient-background event-tile-classes pl-7 laptop:pl-0 "
+      }
+    >
+      <div className="tablet:flex flex-col gap-1  hidden ml-4 tablet:py-1 laptop:py-2">
+        <p className="flex items-center gap-2">
+          <IconCalendar />
+          {props.date}
+        </p>
+        <p className="flex items-center gap-2">
+          <IconClock />
+          {props.start_time}
+        </p>
       </div>
-      <div className={props.generalsRight}>
-        <div className={props.generalDetails}>
-          <Link to={`/events/${props.eventId}/details`}>{props.title}</Link>
-          <p>
-            <IconLocationOutline />
-            {props.city}
-          </p>
-        </div>
-        <div className={props.buttonArea}>
-          <Button
-            inner_text={props.action}
-            className={props.className}
-            onClick={handleEvent}
-          />
-        </div>
+
+      <div className={""}>
+        <Link to={`/events/${props.eventId}/details`}>{props.title}</Link>
+        <p className="flex items-center gap-1">
+          <IconLocationOutline height="1.1em" width="1.1em" />
+          {props.city}
+        </p>
+        <Link
+          to={`/events/${props.eventId}/details`}
+          className="hidden tablet:block laptop:hidden mt-2 "
+        >
+          Read More
+        </Link>
+      </div>
+
+      <div className="flex flex-col gap-1  tablet:hidden">
+        <p className="flex items-center gap-2">
+          <IconCalendar />
+          {props.date}
+        </p>
+        <p className="flex items-center gap-2">
+          <IconClock />
+          {props.start_time}
+        </p>
+
+        <Link to={`/events/${props.eventId}/details`}>Read More</Link>
+      </div>
+      <div
+        className={
+          " tablet:col-span-2 laptop:col-span-1 tablet:flex justify-center"
+        }
+      >
+        <Button
+          inner_text={props.action}
+          className={"booking_spot_btn border-2 p-3 mt-3 laptop:my-0"}
+          onClick={handleEvent}
+        />
       </div>
     </div>
   );
@@ -337,7 +361,7 @@ export function TabContent(props) {
           {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
             props.my_events.map((currentItem, index) => (
               <div
-                className="mt-6 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] grid grid-cols-1 mobil:grid-cols-1 tablet:grid-cols-[50%_50%] laptop:grid-cols-[25%_30%_30%] justify-between"
+                className="mt-6 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] grid grid-cols-1 mobile:grid-cols-1 tablet:grid-cols-[50%_50%] laptop:grid-cols-[25%_30%_30%] justify-between"
                 key={index}
               >
                 <div className="flex flex-col gap-2 tablet:block hidden">
@@ -374,7 +398,7 @@ export function TabContent(props) {
                     {currentItem.start_time}
                   </p>
                 </div>
-                <div className=" mobil:mx-auto tablet:col-span-2 laptop:col-span-1">
+                <div className=" mobile:mx-auto tablet:col-span-2 laptop:col-span-1">
                   <Modal
                     btnDelMSG="DELETE EVENT"
                     delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}

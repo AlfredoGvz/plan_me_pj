@@ -28,9 +28,21 @@
 }
 body {
   font-family: "Poppins", sans-serif;
+
+  /*
+** === SMALL COMPONENTS CLASSES ===
+*/
 }
-.bg-db-tabs {
-  background: #000c14;
+
+.event-tile-gradient-background {
+  background-image: linear-gradient(
+    to right,
+    #415a77,
+    #384b63,
+    #2f3d4f,
+    #262f3d,
+    #1d222b
+  );
 }
 .booking_spot_btn {
   height: fit-content;
@@ -98,9 +110,6 @@ body {
   gap: 0.5rem;
 }
 
-/*
-** === SMALL COMPONENTS CLASSES ===
-*/
 .modal_warning_strip {
   margin-left: auto;
   margin-right: auto;
@@ -119,6 +128,43 @@ body {
   );
   border-radius: 0.375rem; /* Equivalent to rounded-md */
 }
+/*
+** === END SMALL COMPONENTS CLASSES ===
+*/
+
+/*
+** === EVENT TILE COMPONENT CLASSES ===
+*/
+
+.event-tile-classes {
+  a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+
+    @media (min-width: 390px) {
+      font-size: 1rem; // 'mobile' breakpoint
+    }
+
+    @media (min-width: 800px) {
+      font-size: 1.25rem; // 'tablet' breakpoint
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 1.4rem; // 'laptop' breakpoint
+    }
+  }
+
+  &:hover {
+    a {
+      color: #2ec4b6;
+    }
+  }
+}
+
+/*
+** === END EVENT TILE COMPONENT CLASSES ===
+*/
 
 /*
 ** === DASHBOARD CLASSES ===
@@ -179,6 +225,17 @@ body {
 /*
 ** === END OF DASHBOARD CLASSES ===
 */
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+
+  // For screens larger than laptop size (1024px and above)
+  @media (min-width: 1024px) {
+    writing-mode: horizontal-tb; // Reverts to horizontal text flow
+    transform: rotate(0deg); // Resets the rotation
+  }
+}
+
 .loader {
   width: 55px;
   aspect-ratio: 1;
@@ -239,7 +296,7 @@ body {
     transition: color 0.2s ease-in-out;
     font-weight: 600;
     @media (min-width: 390px) {
-      font-size: 1rem; // 'mobil' breakpoint
+      font-size: 1rem; // 'mobile' breakpoint
     }
 
     @media (min-width: 800px) {
