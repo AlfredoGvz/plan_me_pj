@@ -14,7 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../App";
 
 const EventById = () => {
-  const { toggle, user } = useContext(MyContext); // Ensure toggle is a boolean
+  const { user } = useContext(MyContext); // Ensure toggle is a boolean
   const { event_id } = useParams();
   const { eventByIdData, isLoading, error } = useGetEventById(
     event_id,
@@ -103,9 +103,9 @@ const EventById = () => {
           >
             <Modal
               btnDelMSG="DELETE THIS EVENT"
-              delMSG="You are about to delete your account. This action cannot be undone."
+              delMSG={`You are about to delete the event: "${eventByIdData[0].title}". This action cannot be undone.`}
               handle_delete={handleDelete}
-              modal_id={""}
+              modal_id={"del_event_by_id"}
             />
           </div>
         </div>

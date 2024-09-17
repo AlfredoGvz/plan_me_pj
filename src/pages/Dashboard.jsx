@@ -5,11 +5,10 @@ import { logOut } from "../../utilities/utilities";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Modal, TabContent } from "../assets/components/Components";
-import {
-  useDeleteEvent,
-  useGetHostedEvents,
-} from "../../utilities/customHooks";
-useDeleteEvent;
+
+import { useGetHostedEvents } from "../../utilities/customHooks";
+import AddEvent from "./AddEvent";
+
 // Ping the server every 10 minutes to keep it active (10 minutes = 600,000 milliseconds)
 const Dashbooard = () => {
   const { user } = useContext(MyContext);
@@ -22,6 +21,7 @@ const Dashbooard = () => {
     logOut();
     localStorage.clear();
   };
+
   const { hostedEvents, isLoading, error } = useGetHostedEvents(endPoint);
   useEffect(() => {
     setEndPoint("/api/get_hosted_events");
@@ -29,6 +29,7 @@ const Dashbooard = () => {
 
   const firstName = name ? name.split(" ") : "";
   const navigate = useNavigate();
+
   return (
     <div className="w-[90%] tablet:w-[80%] desktop:grid mx-auto grid-cols-[35%_65%] gap-6 h-[calc(100vh-96px)]">
       {/* WELCOME PANEL*/}
@@ -45,14 +46,12 @@ const Dashbooard = () => {
             user_role === "attendee" ? "buttons_grid_att" : "buttons_grid_org"
           } my-3`}
         >
-          <NavLink
-            className={`btn btn-outline btn-secondary text-nowrap ${
+          <AddEvent
+            className={`btn w-full btn-outline btn-secondary text-nowrap ${
               user_role === "attendee" ? "hidden" : "block"
             } flex`}
-            to="/add_event"
-          >
-            Create Event
-          </NavLink>
+          />
+
           <NavLink
             to="/events"
             className="btn btn-outline btn-secondary text-nowrap"
@@ -74,7 +73,7 @@ const Dashbooard = () => {
         </div>
         <div>
           {/* DANGER ZONE DELETE PROFILE */}
-          <div className="my-10 tablet:block hidden">
+          <div className="my-10 laptop:block hidden">
             <div className="modal_warning_strip my-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -108,11 +107,45 @@ const Dashbooard = () => {
         </div>
       </div>
       {/* Dashboard tabs */}
-      <div className="flex gap-8">
-        <div className=" w-full">
+      <div className="flex flex-col gap-8">
+        <div className="w-full">
           <TabContent
-            className={"w-[100%] tabs tabs-bordered tablet:tabs-lg lg:my-0"}
+            className={
+              "w-[100%] tabs tabs-bordered tablet:tabs-lg mt-8 laptop:my-0"
+            }
             my_events={hostedEvents}
+          />
+        </div>
+        {/* DANGER ZONE DELETE PROFILE MOBILE*/}
+        <div className="laptop:hidden block my-8 ">
+          <div className="modal_warning_strip mb-6">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 shrink-0 stroke-current mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
+            </svg>
+            <span>DANGER ZONE</span>
+          </div>
+
+          <p className={"mb-6"}>
+            By deleting your account, you will permanently lose access to all
+            services associated with this app. This action will also remove all
+            your events and personal information from our records..
+          </p>
+
+          <Modal
+            btnDelMSG="DELETE ACCOUNT"
+            delMSG="You are about to delete your account. This action cannot be undone."
+            handle_delete={handleDeleteUser}
+            modal_id={"del_acc_mod"}
           />
         </div>
       </div>

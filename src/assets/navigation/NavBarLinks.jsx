@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { MyContext } from "../../App";
+import AddEvent from "../../pages/AddEvent";
 
 const NavBarLinks = (props) => {
   const { user } = useContext(MyContext);
@@ -14,9 +15,7 @@ const NavBarLinks = (props) => {
       <NavLink to="/events">Events</NavLink>
       {user &&
         user.data.user.dataTosend.userInDB[0].user_role !== "attendee" && (
-          <NavLink to="/add_event" className={"hidden tablet:block"}>
-            Add Event
-          </NavLink>
+          <AddEvent className={"hidden tablet:block"} />
         )}
     </nav>
   );

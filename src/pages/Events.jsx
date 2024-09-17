@@ -13,7 +13,7 @@ const Events = () => {
   if (error) return <p>Error loading events: {error.message}</p>; // Display error state
 
   return (
-    <div className="text-white py-8">
+    <div className="text-white">
       <div className="laptop:w-11/12 m-auto">
         <div className="flex justify-center">
           <div className="w-[20%] my-2 py-5">

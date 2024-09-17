@@ -106,6 +106,7 @@ export function useSender(endpoint, event) {
         console.error("Error sending event:", err);
       } finally {
         setIsLoading(false); // Set loading to false after the request
+        window.location.reload();
       }
     };
 

@@ -1,10 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import {
-  IconCalendar,
-  IconClock,
-  IconLink,
-  IconLocationOutline,
-} from "./Icons";
+import { IconCalendar, IconClock, IconLocationOutline } from "./Icons";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -93,7 +88,7 @@ export function InputField(props) {
   return (
     <div className="w-full">
       <label htmlFor={props.id}>{props.labelvalue}</label>
-      <input {...props} />
+      <input {...props} required />
     </div>
   );
 }
@@ -102,7 +97,7 @@ export function TextArea(props) {
   return (
     <div className="w-full">
       <label htmlFor={props.id}>{props.labelvalue}</label>
-      <textarea {...props} />
+      <textarea {...props} required />
     </div>
   );
 }
@@ -341,12 +336,11 @@ export function EmptyModal(props) {
     </div>
   );
 }
-
 export function TabContent(props) {
   return (
     <div
       role="tablist"
-      className={` tabs tabs-lifted grid tablet:grid-cols-[1fr_1fr_1fr] ${props.className} `}
+      className={` tabs tabs-lifted grid grid-cols-[40%_40%] tablet:grid-cols-[1fr_1fr_1fr] ${props.className} `}
     >
       <input
         type="radio"
@@ -361,49 +355,50 @@ export function TabContent(props) {
           {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
             props.my_events.map((currentItem, index) => (
               <div
-                className="mt-6 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] grid grid-cols-1 mobile:grid-cols-1 tablet:grid-cols-[50%_50%] laptop:grid-cols-[25%_30%_30%] justify-between"
+                className="mt-3 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] event-tile-classes"
                 key={index}
               >
-                <div className="flex flex-col gap-2 tablet:block hidden">
-                  <p className="flex items-center gap-2">
-                    <IconCalendar />
-                    {currentItem.date}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <IconClock />
-                    {currentItem.start_time}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Link
-                    to={`/events/${currentItem.event_id}/details`}
-                    className="flex items-center"
-                  >
-                    <IconLink />
-                    {currentItem.title}
-                  </Link>
-                  <p className="flex items-center gap-2">
-                    {" "}
-                    <IconLocationOutline />
-                    {currentItem.city}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 tablet:hidden block">
-                  <p className="flex items-center gap-2">
-                    <IconCalendar />
-                    {currentItem.date}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <IconClock />
-                    {currentItem.start_time}
-                  </p>
-                </div>
-                <div className=" mobile:mx-auto tablet:col-span-2 laptop:col-span-1">
-                  <Modal
-                    btnDelMSG="DELETE EVENT"
-                    delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
-                    modal_id={"del_evn_mod"}
-                  />
+                <div className="grid grid-cols-1 tablet:grid-cols-[50%_50%] laptop:grid-cols-[25%_30%_30%] laptop:justify-between laptop:w-[100%] w-[80%] mx-auto ">
+                  <div className=" tablet:flex flex-col gap-2 mx-auto hidden">
+                    <p className="flex items-center gap-2">
+                      <IconCalendar />
+                      {currentItem.date}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <IconClock />
+                      {currentItem.start_time}
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2  mx-auto ">
+                    <Link
+                      to={`/events/${currentItem.event_id}/details`}
+                      className="flex items-center"
+                    >
+                      {currentItem.title}
+                    </Link>
+                    <p className="flex items-center gap-2">
+                      {" "}
+                      <IconLocationOutline height={"1.5rem"} width={"1.5rem"} />
+                      {currentItem.city}
+                    </p>
+                    <p className="flex items-center gap-2 tablet:hidden ">
+                      <IconCalendar />
+                      {currentItem.date}
+                    </p>
+                    <p className="flex items-center gap-2 tablet:hidden ">
+                      <IconClock />
+                      {currentItem.start_time}
+                    </p>
+                  </div>
+
+                  {/* <div className=" mobile:mx-auto mt-7 laptop:my-auto tablet:col-span-2 laptop:col-span-1 ">
+                    <Modal
+                      btnDelMSG="DELETE EVENT"
+                      delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
+                      modal_id={"del_evn_mod"}
+                      handle_delete={() => handleDelete(currentItem.event_id)}
+                    />
+                  </div> */}
                 </div>
               </div>
             ))
@@ -418,7 +413,7 @@ export function TabContent(props) {
         name="my_tabs_1"
         role="tab"
         className="tab [--tab-bg:#003554] [--tab-border-color:#003554] "
-        aria-label="My next meetings"
+        aria-label="Next meetings"
       />
       <div role="tabpanel" className="tab-content ">
         <div className="h-[70vh] text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] rounded-lg"></div>
