@@ -77,7 +77,7 @@ const Dashbooard = () => {
         </div>
         <div>
           {/* DANGER ZONE DELETE PROFILE */}
-          <div className="my-10 laptop:block hidden">
+          <div className="my-10 hidden laptop:block">
             <div className="modal_warning_strip my-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -122,8 +122,8 @@ const Dashbooard = () => {
           />
         </div>
         {/* DANGER ZONE DELETE PROFILE MOBILE*/}
-        <div className="laptop:hidden block my-8 ">
-          <div className="modal_warning_strip mb-6">
+        <div className="my-10 block laptop:hidden">
+          <div className="modal_warning_strip my-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 shrink-0 stroke-current mr-2"
@@ -150,7 +150,7 @@ const Dashbooard = () => {
             btnDelMSG="DELETE ACCOUNT"
             delMSG="You are about to delete your account. This action cannot be undone."
             handle_delete={handleDeleteUser}
-            modal_id={"del_acc_mod"}
+            modal_id={"del_acc_mod_mob"}
           />
         </div>
       </div>
