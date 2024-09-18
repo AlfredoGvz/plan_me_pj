@@ -10,7 +10,7 @@ import {
   useGetHostedEvents,
 } from "../../utilities/customHooks";
 import AddEvent from "./AddEvent";
-import { Modal, TabContent } from "../assets/components/components";
+import { Modal, TabContent } from "../assets/components/Components";
 
 // Ping the server every 10 minutes to keep it active (10 minutes = 600,000 milliseconds)
 const Dashbooard = () => {

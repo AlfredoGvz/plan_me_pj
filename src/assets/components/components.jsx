@@ -4,6 +4,7 @@ import { IconCalendar, IconClock, IconLocationOutline } from "./Icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAttendEvent } from "../../../utilities/customHooks";
+
 export const Button = (props) => {
   return (
     <button className={props.className} {...props}>

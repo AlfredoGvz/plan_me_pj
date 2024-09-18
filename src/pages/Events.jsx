@@ -1,5 +1,6 @@
 import { useGetEvents } from "../../utilities/customHooks";
 import { EventTile } from "../assets/components/Components";
+
 const Events = () => {
   const { eventsData, isLoading, error } = useGetEvents("/api/get_events");
   if (isLoading)

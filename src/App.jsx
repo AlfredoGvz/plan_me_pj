@@ -8,7 +8,6 @@ import RootLayout from "./Layout";
 import Dashbooard from "./pages/Dashboard";
 import Events from "./pages/Events";
 import EventById from "./pages/EventById";
-import LogInForm from "./assets/components/LogInForm";
 import AddEvent from "./pages/AddEvent";
 import { createContext, useState } from "react";
 import { pingServer } from "../utilities/utilities";
@@ -19,7 +18,6 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Dashbooard />} />
       <Route path="events" element={<Events />} />
-      <Route path="log_in" element={<LogInForm />} />
       <Route path="add_event" element={<AddEvent />} />
       <Route path="events/:event_id/details" element={<EventById />}></Route>
     </Route>
