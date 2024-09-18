@@ -9,7 +9,7 @@ import {
   IconPersonCheck,
 } from "../assets/components/Icons";
 
-import { Button, Modal } from "../assets/components/Components";
+import { Button, Modal } from "../assets/components/components";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "../App";
 
