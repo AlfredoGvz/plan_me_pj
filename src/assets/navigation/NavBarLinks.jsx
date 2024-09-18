@@ -12,7 +12,7 @@ const NavBarLinks = (props) => {
       <NavLink to="/dashboard" className={hidden}>
         Dashboard
       </NavLink>
-      <NavLink to="/events">Events</NavLink>
+      <NavLink to="/">Events</NavLink>
       {user &&
         user.data.user.dataTosend.userInDB[0].user_role !== "attendee" && (
           <AddEvent className={"hidden tablet:block"} />
