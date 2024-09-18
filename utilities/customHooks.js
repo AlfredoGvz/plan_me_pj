@@ -206,3 +206,38 @@ export function useGetHostedEvents(endpoint) {
 
   return { hostedEvents, isLoading, error };
 }
+
+export function useGetBookedEvents(endpoint) {
+  console.log(endpoint);
+  try {
+    const [bookedEvents, setBookedEvents] = useState([]);
+    const [isBookedLoading, setIsBookedLoading] = useState(true);
+    const [errorBooked, setErrorBooked] = useState(null);
+    useEffect(() => {
+      const fetchBookedEvents = async () => {
+        // Ensure endpoint exists before making API call
+        if (!endpoint) {
+          setIsBookedLoading(false);
+          return;
+        }
+
+        try {
+          const response = await axios.get(
+            `https://sql-be-test.onrender.com${endpoint}`
+          );
+          console.log(response);
+          setBookedEvents(response.data.userBookedEvents); // Ensure you're accessing `myEvents` correctly from response
+        } catch (error) {
+          setErrorBooked(error);
+        } finally {
+          setIsBookedLoading(false);
+        }
+      };
+
+      fetchBookedEvents();
+    }, [endpoint]);
+    return { bookedEvents, isBookedLoading, errorBooked };
+  } catch (error) {
+    console.log(error);
+  }
+}

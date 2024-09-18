@@ -4,15 +4,19 @@ import HelloLogo from "../assets/components/happy-man-svgrepo-com.svg";
 import { logOut } from "../../utilities/utilities";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Modal, TabContent } from "../assets/components/Components";
 
-import { useGetHostedEvents } from "../../utilities/customHooks";
+import {
+  useGetBookedEvents,
+  useGetHostedEvents,
+} from "../../utilities/customHooks";
 import AddEvent from "./AddEvent";
+import { Modal, TabContent } from "../assets/components/components";
 
 // Ping the server every 10 minutes to keep it active (10 minutes = 600,000 milliseconds)
 const Dashbooard = () => {
   const { user } = useContext(MyContext);
-  const [endPoint, setEndPoint] = useState(null);
+  const [endPointHosted, setEndPointHosted] = useState(null);
+  const [endPointBooked, setEndPointBooked] = useState(null);
   const name = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_name;
   const user_role = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role;
   const handleDeleteUser = async () => {
@@ -22,9 +26,12 @@ const Dashbooard = () => {
     localStorage.clear();
   };
 
-  const { hostedEvents, isLoading, error } = useGetHostedEvents(endPoint);
+  const { hostedEvents, isLoading, error } = useGetHostedEvents(endPointHosted);
+  const { bookedEvents, isBookedLoading, errorBooked } =
+    useGetBookedEvents(endPointBooked);
   useEffect(() => {
-    setEndPoint("/api/get_hosted_events");
+    setEndPointHosted("/api/get_hosted_events");
+    setEndPointBooked("/api/get_booked_events");
   }, []);
 
   const firstName = name ? name.split(" ") : "";
@@ -114,6 +121,7 @@ const Dashbooard = () => {
               "w-[100%] tabs tabs-bordered tablet:tabs-lg mt-8 laptop:my-0"
             }
             my_events={hostedEvents}
+            booked_events={bookedEvents}
           />
         </div>
         {/* DANGER ZONE DELETE PROFILE MOBILE*/}
