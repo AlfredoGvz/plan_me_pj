@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export function BrandLogo(props) {
   return (
-    <NavLink {...props} to="/events">
+    <NavLink {...props}>
       <p>PLAN ME</p>
     </NavLink>
   );
