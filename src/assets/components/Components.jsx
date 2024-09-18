@@ -192,7 +192,7 @@ export function EmptyModal(props) {
         `https://sql-be-test.onrender.com/api/new_user`,
         signUpCredentials
       );
-      navigate("/events"); // Redirect after successful login
+      navigate("/"); // Redirect after successful login
       window.location.reload();
     } catch (error) {
       console.log(error);

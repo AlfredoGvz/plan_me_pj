@@ -30,7 +30,7 @@ const EventById = () => {
   useEffect(() => {
     if (!isLoadingDel && eventToDelete && !errorDel) {
       // Only navigate when deletion completes and no errors occur
-      navigate("/events");
+      navigate("/");
     }
   }, [isLoadingDel, eventToDelete, errorDel, navigate]);
 

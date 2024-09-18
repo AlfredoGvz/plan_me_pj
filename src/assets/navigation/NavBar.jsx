@@ -36,7 +36,7 @@ export const NavBar = () => {
             inner_text={"Logout"}
             onClick={() => {
               logOut();
-              navigate("/events");
+              navigate("/");
             }}
           />
         )}

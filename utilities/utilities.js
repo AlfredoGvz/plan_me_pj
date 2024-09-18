@@ -19,7 +19,7 @@ export async function handleDeleteUser() {
   const navigate = useNavigate();
 
   await axios.delete(`https://sql-be-test.onrender.com/api/delete_user`);
-  navigate("/events");
+  navigate("/");
   logOut();
   localStorage.clear();
 }

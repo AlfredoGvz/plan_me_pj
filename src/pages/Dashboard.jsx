@@ -21,7 +21,7 @@ const Dashbooard = () => {
   const user_role = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role;
   const handleDeleteUser = async () => {
     await axios.delete(`https://sql-be-test.onrender.com/api/delete_user`);
-    navigate("/events");
+    navigate("/");
     logOut();
     localStorage.clear();
   };
@@ -59,10 +59,7 @@ const Dashbooard = () => {
             } flex`}
           />
 
-          <NavLink
-            to="/events"
-            className="btn btn-outline btn-secondary text-nowrap"
-          >
+          <NavLink to="/" className="btn btn-outline btn-secondary text-nowrap">
             See Events
           </NavLink>
           <button className="btn btn-outline btn-secondary text-nowrap">
@@ -72,7 +69,7 @@ const Dashbooard = () => {
             className="btn btn-outline btn-default text-nowrap"
             onClick={() => {
               logOut();
-              navigate("/events");
+              navigate("/");
             }}
           >
             Log Out
