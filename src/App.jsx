@@ -17,7 +17,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route path="dashboard" element={<Dashbooard />} />
-      <Route path="events" element={<Events />} />
+      <Route index element={<Events />} />
       <Route path="add_event" element={<AddEvent />} />
       <Route path="events/:event_id/details" element={<EventById />}></Route>
     </Route>
