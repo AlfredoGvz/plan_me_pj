@@ -215,12 +215,14 @@ export function EmptyModal(props) {
             {/* if there is a button in form, it will close the modal */}
             <button
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              type="button"
               onClick={() => {
                 setEmail(""),
                   setPassword(""),
                   setName(""),
                   setSurname(""),
                   setUserRole("");
+                document.getElementById("my_modal_3").close();
               }}
             >
               ✕
