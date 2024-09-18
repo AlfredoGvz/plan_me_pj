@@ -9,7 +9,7 @@ const NavBarLinks = (props) => {
   !user ? (hidden = "hidden") : (hidden = "block");
   return (
     <nav className={props.className}>
-      <NavLink to="/" className={hidden}>
+      <NavLink to="/dashboard" className={hidden}>
         Dashboard
       </NavLink>
       <NavLink to="/events">Events</NavLink>

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import {
   BrandLogo,
   IconInstagramOutline,
-  IconProfile,
   IconYoutubeOutlined,
 } from "../components/Icons";
 
