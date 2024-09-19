@@ -10,7 +10,11 @@ import {
   useGetHostedEvents,
 } from "../../utilities/customHooks";
 import AddEvent from "./AddEvent";
-import { Modal, TabContent } from "../assets/components/Components";
+import {
+  Modal,
+  TabContent,
+  TabContentAtt,
+} from "../assets/components/Components";
 
 // Ping the server every 10 minutes to keep it active (10 minutes = 600,000 milliseconds)
 const Dashbooard = () => {
@@ -25,7 +29,6 @@ const Dashbooard = () => {
     logOut();
     localStorage.clear();
   };
-
   const { hostedEvents, isLoading, error } = useGetHostedEvents(endPointHosted);
   const { bookedEvents, isBookedLoading, errorBooked } =
     useGetBookedEvents(endPointBooked);
@@ -113,13 +116,24 @@ const Dashbooard = () => {
       {/* Dashboard tabs */}
       <div className="flex flex-col gap-8">
         <div className="w-full">
-          <TabContent
-            className={
-              "w-[100%] tabs tabs-bordered tablet:tabs-lg mt-8 laptop:my-0"
-            }
-            my_events={hostedEvents}
-            booked_events={bookedEvents}
-          />
+          {user_role === "organizer" ? (
+            <TabContent
+              className={
+                "w-[100%] tabs tabs-bordered tablet:tabs-lg mt-8 laptop:my-0"
+              }
+              my_events={hostedEvents}
+              booked_events={bookedEvents}
+            />
+          ) : user_role === "attendee" ? (
+            <TabContentAtt
+              className={
+                "w-[100%] tabs tabs-bordered tablet:tabs-lg mt-8 laptop:my-0"
+              }
+              booked_events={bookedEvents}
+            />
+          ) : (
+            <p>No valid role detected</p>
+          )}
         </div>
         {/* DANGER ZONE DELETE PROFILE MOBILE*/}
         <div className="my-10 block laptop:hidden">

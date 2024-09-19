@@ -353,7 +353,7 @@ export function TabContent(props) {
         aria-label="Hosted Events"
         defaultChecked
       />
-      <div role="tabpanel" className="tab-content ">
+      <div role="tabpanel" className="tab-content">
         <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-4 rounded-lg rounded-tl-none tabs_content">
           {Array.isArray(props.my_events) && props.my_events.length > 0 ? (
             props.my_events.map((currentItem, index) => (
@@ -421,6 +421,84 @@ export function TabContent(props) {
       <div role="tabpanel" className="tab-content ">
         <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-4 rounded-lg rounded-tl-none tabs_content">
           {Array.isArray(props.booked_events) && props.my_events.length > 0 ? (
+            props.booked_events.map((currentItem, index) => (
+              <div
+                className="mt-3 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] event-tile-classes"
+                key={index}
+              >
+                <div className="grid grid-cols-1 tablet:grid-cols-[50%_50%] laptop:grid-cols-[25%_30%_30%] laptop:justify-between laptop:w-[100%] w-[80%] mx-auto ">
+                  <div className=" tablet:flex flex-col gap-2 mx-auto hidden">
+                    <p className="flex items-center gap-2">
+                      <IconCalendar />
+                      {currentItem.date}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <IconClock />
+                      {currentItem.start_time}
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2  mx-auto ">
+                    <Link
+                      to={`/events/${currentItem.event_id}/details`}
+                      className="flex items-center"
+                    >
+                      {currentItem.title}
+                    </Link>
+                    <p className="flex items-center gap-2">
+                      {" "}
+                      <IconLocationOutline height={"1.5rem"} width={"1.5rem"} />
+                      {currentItem.city}
+                    </p>
+                    <p className="flex items-center gap-2 tablet:hidden ">
+                      <IconCalendar />
+                      {currentItem.date}
+                    </p>
+                    <p className="flex items-center gap-2 tablet:hidden ">
+                      <IconClock />
+                      {currentItem.start_time}
+                    </p>
+                  </div>
+
+                  {/* <div className=" mobile:mx-auto mt-7 laptop:my-auto tablet:col-span-2 laptop:col-span-1 ">
+                    <Modal
+                      btnDelMSG="DELETE EVENT"
+                      delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
+                      modal_id={"del_evn_mod"}
+                      handle_delete={() => handleDelete(currentItem.event_id)}
+                    />
+                  </div> */}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="m-auto">No events available.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TabContentAtt(props) {
+  console.log(props.booked_events);
+
+  return (
+    <div
+      role="tablist"
+      className={` tabs tabs-lifted grid grid-cols-[40%_40%] tablet:grid-cols-[1fr_1fr_1fr] ${props.className} `}
+    >
+      <input
+        type="radio"
+        name="my_tabs_2"
+        role="tab"
+        className="tab [--tab-bg:#003554] [--tab-border-color:#003554] "
+        aria-label="Next meetings"
+        defaultChecked
+      />
+      <div role="tabpanel" className="tab-content ">
+        <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-4 rounded-lg rounded-tl-none tabs_content">
+          {Array.isArray(props.booked_events) &&
+          props.booked_events.length > 0 ? (
             props.booked_events.map((currentItem, index) => (
               <div
                 className="mt-3 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] event-tile-classes"
