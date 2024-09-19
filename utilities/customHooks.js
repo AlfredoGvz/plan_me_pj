@@ -148,7 +148,6 @@ export function useAttendEvent(event_id) {
   const [registered, setRegistered] = useState("");
   const [isLoadingCal, setIsLoadingCal] = useState(false);
   const [errorCal, setErrorCal] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!event_id) return; // Do nothing if event_id is not set

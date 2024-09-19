@@ -35,7 +35,7 @@ const Dashbooard = () => {
   useEffect(() => {
     setEndPointHosted("/api/get_hosted_events");
     setEndPointBooked("/api/get_booked_events");
-  }, []);
+  }, [hostedEvents, bookedEvents]);
 
   const firstName = name ? name.split(" ") : "";
   const navigate = useNavigate();
@@ -128,7 +128,7 @@ const Dashbooard = () => {
               className={
                 "w-[100%] tabs tabs-bordered tablet:tabs-lg mt-8 laptop:my-0"
               }
-              booked_events={bookedEvents || []}
+              booked_events={bookedEvents}
             />
           )}
         </div>

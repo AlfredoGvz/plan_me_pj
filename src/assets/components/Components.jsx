@@ -420,7 +420,8 @@ export function TabContent(props) {
       />
       <div role="tabpanel" className="tab-content ">
         <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-4 rounded-lg rounded-tl-none tabs_content">
-          {Array.isArray(props.booked_events) && props.my_events.length > 0 ? (
+          {Array.isArray(props.booked_events) &&
+          props.booked_events.length > 0 ? (
             props.booked_events.map((currentItem, index) => (
               <div
                 className="mt-3 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] event-tile-classes"
@@ -493,7 +494,6 @@ export function TabContentAtt(props) {
         role="tab"
         className="tab [--tab-bg:#003554] [--tab-border-color:#003554] "
         aria-label="Next meetings"
-        defaultChecked
       />
       <div role="tabpanel" className="tab-content ">
         <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-4 rounded-lg rounded-tl-none tabs_content">
