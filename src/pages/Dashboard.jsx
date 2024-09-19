@@ -56,12 +56,11 @@ const Dashbooard = () => {
             user_role === "attendee" ? "buttons_grid_att" : "buttons_grid_org"
           } my-3`}
         >
-          <AddEvent
-            className={`btn w-full btn-outline btn-secondary text-nowrap ${
-              user_role === "attendee" ? "hidden" : "block"
-            } flex`}
-          />
-
+          {user_role === "organizer" && (
+            <AddEvent
+              className={`btn w-full btn-outline btn-secondary text-nowrap flex`}
+            />
+          )}
           <NavLink to="/" className="btn btn-outline btn-secondary text-nowrap">
             See Events
           </NavLink>
@@ -124,15 +123,13 @@ const Dashbooard = () => {
               my_events={hostedEvents}
               booked_events={bookedEvents}
             />
-          ) : user_role === "attendee" ? (
+          ) : (
             <TabContentAtt
               className={
                 "w-[100%] tabs tabs-bordered tablet:tabs-lg mt-8 laptop:my-0"
               }
-              booked_events={bookedEvents}
+              booked_events={bookedEvents || []}
             />
-          ) : (
-            <p>No valid role detected</p>
           )}
         </div>
         {/* DANGER ZONE DELETE PROFILE MOBILE*/}
