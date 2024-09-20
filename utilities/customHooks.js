@@ -1,19 +1,30 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export function useGetEvents(endpoint, filters) {
   const [eventsData, setEventsData] = useState([]); // Initialize as an empty array
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const fiters = {
+    city: "Manchester",
+  };
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
           `https://sql-be-test.onrender.com${endpoint}`,
           {
-            params: filters, // Pass filters as query params
+            params: {
+              organizer_id: "",
+              organizer_name: "",
+              start_time: "",
+              end_time: "",
+              date: "",
+              price: "",
+              post_code: "",
+              city: "",
+              lastSeenId: "10",
+            }, // Pass filters as query params
           }
         );
 
