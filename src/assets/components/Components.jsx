@@ -494,6 +494,7 @@ export function TabContentAtt(props) {
         role="tab"
         className="tab [--tab-bg:#003554] [--tab-border-color:#003554] "
         aria-label="Next meetings"
+        defaultChecked
       />
       <div role="tabpanel" className="tab-content ">
         <div className="h-[70vh] flex flex-col items-center text-[.9rem] sm:text-[1.2rem] bg-[#eae0d5] py-4 rounded-lg rounded-tl-none tabs_content">
@@ -552,6 +553,27 @@ export function TabContentAtt(props) {
             <p className="m-auto">No events available.</p>
           )}
         </div>
+      </div>
+    </div>
+  );
+}
+
+export function PaginationUI(props) {
+  return (
+    <div className=" my-8 flex ">
+      <div className="join mx-auto ">
+        <button className="join-item btn bg-[#015d87] text-[#f9f9f9]">«</button>
+        <button className="join-item btn bg-[#015d87] text-[#f9f9f9]">
+          Page 22
+        </button>
+        <button
+          className="join-item btn bg-[#015d87] text-[#f9f9f9]"
+          onClick={() => {
+            props.nextTen();
+          }}
+        >
+          »
+        </button>
       </div>
     </div>
   );

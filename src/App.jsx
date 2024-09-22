@@ -27,9 +27,8 @@ const router = createBrowserRouter(
 setInterval(pingServer, 10 * 60 * 1000);
 
 const App = () => {
-  const [toggle, setToggle] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
-  const values = { toggle, setToggle, user };
+  const values = { user };
 
   return (
     <MyContext.Provider value={values}>

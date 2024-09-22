@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
+  useActivateCalendar,
   useGetBookedEvents,
   useGetHostedEvents,
 } from "../../utilities/customHooks";
@@ -21,6 +22,7 @@ const Dashbooard = () => {
   const { user } = useContext(MyContext);
   const [endPointHosted, setEndPointHosted] = useState(null);
   const [endPointBooked, setEndPointBooked] = useState(null);
+  const [endPointCalendar, setendPointCalendar] = useState(null);
   const name = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_name;
   const user_role = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role;
   const handleDeleteUser = async () => {
@@ -32,6 +34,9 @@ const Dashbooard = () => {
   const { hostedEvents, isLoading, error } = useGetHostedEvents(endPointHosted);
   const { bookedEvents, isBookedLoading, errorBooked } =
     useGetBookedEvents(endPointBooked);
+  const { authURL, authURLLoading, errorAuthURL } =
+    useActivateCalendar(endPointCalendar);
+
   useEffect(() => {
     setEndPointHosted("/api/get_hosted_events");
     setEndPointBooked("/api/get_booked_events");
@@ -39,7 +44,16 @@ const Dashbooard = () => {
 
   const firstName = name ? name.split(" ") : "";
   const navigate = useNavigate();
+  const handleCalendarAuth = (endPointCal) => {
+    setendPointCalendar(endPointCal);
+  };
 
+  useEffect(() => {
+    if (authURL) {
+      // Open the authURL in a new tab once it is available
+      window.open(authURL, "_blank");
+    }
+  }, [authURL]);
   return (
     <div className="w-[90%] tablet:w-[80%] desktop:grid mx-auto grid-cols-[35%_65%] gap-6 h-[calc(100vh-96px)]">
       {/* WELCOME PANEL*/}
@@ -64,7 +78,12 @@ const Dashbooard = () => {
           <NavLink to="/" className="btn btn-outline btn-secondary text-nowrap">
             See Events
           </NavLink>
-          <button className="btn btn-outline btn-secondary text-nowrap">
+          <button
+            className="btn btn-outline btn-secondary text-nowrap"
+            onClick={() => {
+              handleCalendarAuth("/api/google_auth/add_calendar");
+            }}
+          >
             Add Calendar
           </button>
           <button

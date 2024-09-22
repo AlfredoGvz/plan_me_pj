@@ -1,13 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 
-export function useGetEvents(endpoint, filters) {
+export function useGetEvents(endpoint, indexLast, filters) {
   const [eventsData, setEventsData] = useState([]); // Initialize as an empty array
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const fiters = {
     city: "Manchester",
   };
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchParams = queryParams.get("last_item");
+  console.log(searchParams);
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -23,7 +28,7 @@ export function useGetEvents(endpoint, filters) {
               price: "",
               post_code: "",
               city: "",
-              lastSeenId: "10",
+              lastSeenId: searchParams,
             }, // Pass filters as query params
           }
         );
@@ -96,6 +101,7 @@ export function useLogIn(endpoint, credentials, send, setSend) {
 
   return { userLogged, isLoading, error };
 }
+
 export function useSender(endpoint, event) {
   const [isLoading, setIsLoading] = useState(false); // Start as false
   const [error, setError] = useState(null);
@@ -218,7 +224,6 @@ export function useGetHostedEvents(endpoint) {
 }
 
 export function useGetBookedEvents(endpoint) {
-  console.log(endpoint);
   try {
     const [bookedEvents, setBookedEvents] = useState([]);
     const [isBookedLoading, setIsBookedLoading] = useState(true);
@@ -250,4 +255,84 @@ export function useGetBookedEvents(endpoint) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export function useActivateCalendar(endpointCalendar) {
+  const [authURL, setAuthURL] = useState(null);
+  const [authURLLoading, setAuthURLLoading] = useState(true);
+  const [errorAuthURL, setErrorAuthURL] = useState(null);
+
+  useEffect(() => {
+    if (!endpointCalendar) {
+      setAuthURLLoading(false);
+      return;
+    }
+
+    const fetchAuthURL = async () => {
+      try {
+        const response = await axios.get(
+          `https://sql-be-test.onrender.com${endpointCalendar}`
+        );
+        console.log("Response data:", response.data); // Log full response
+        if (response.data && response.data.calendarURL) {
+          setAuthURL(response.data.calendarURL);
+          console.log("Calendar URL:", response.data.calendarURL); // Log the calendarURL to verify it's correct
+        } else {
+          console.error("calendarURL is missing in response");
+        }
+      } catch (error) {
+        setErrorAuthURL(error);
+        console.error("Error fetching calendar URL:", error);
+      } finally {
+        setAuthURLLoading(false);
+        const retrieveUpdatedUser = await axios.get(
+          `https://sql-be-test.onrender.com/api/current_user`
+        );
+        console.log(retrieveUpdatedUser.data);
+      }
+    };
+
+    setAuthURLLoading(true);
+    fetchAuthURL();
+  }, [endpointCalendar]);
+
+  return { authURL, authURLLoading, errorAuthURL };
+}
+
+export function useAddToGoogleCalendar(eventId) {
+  const [eventAddedURL, setEventAddedURL] = useState(null);
+  const [sendToCalendarLoading, setSendToCalendarLoading] = useState(true);
+  const [errorAuthURL, setErrorAuthURL] = useState(null);
+
+  useEffect(() => {
+    if (!eventId) {
+      setSendToCalendarLoading(false);
+      return;
+    }
+
+    const addEventToCalendar = async () => {
+      try {
+        const response = await axios.get(
+          `https://sql-be-test.onrender.com/api/google_calendar/${eventId}/add_event`
+        );
+        console.log("Response data:", response); // Log full response
+        if (response.data) {
+          setEventAddedURL(response.data);
+          console.log("Calendar URL:", response.data); // Log the calendarURL to verify it's correct
+        } else {
+          console.error("calendarURL is missing in response");
+        }
+      } catch (error) {
+        setErrorAuthURL(error);
+        console.error("Error fetching calendar URL:", error);
+      } finally {
+        setSendToCalendarLoading(false);
+      }
+    };
+
+    setSendToCalendarLoading(true);
+    addEventToCalendar();
+  }, [eventId]);
+
+  return { eventAddedURL, sendToCalendarLoading, errorAuthURL };
 }

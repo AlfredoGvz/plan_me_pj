@@ -1,8 +1,28 @@
+import { useState } from "react";
 import { useGetEvents } from "../../utilities/customHooks";
-import { EventTile } from "../assets/components/Components";
+import { EventTile, PaginationUI } from "../assets/components/Components";
+import { useNavigate } from "react-router-dom";
 
 const Events = () => {
-  const { eventsData, isLoading, error } = useGetEvents("/api/get_events");
+  const navigate = useNavigate();
+  let [indexLast, setIndexLast] = useState(0);
+  const { eventsData, isLoading, error } = useGetEvents(
+    "/api/get_events",
+    indexLast
+  );
+
+  const handleNextTen = () => {
+    let page = 0;
+    const newIndexLast = eventsData.length;
+    let nextTen = eventsData[newIndexLast - 1].eventId;
+    console.log(nextTen);
+
+    setIndexLast(nextTen);
+
+    // Update the URL with the new pagination value (lastSeenId)
+    navigate(`?last_item=${nextTen}`);
+  };
+
   if (isLoading)
     return (
       <div className=" body-height flex justify-center items-center">
@@ -43,14 +63,8 @@ const Events = () => {
             ) : (
               <p>No events available.</p> // Fallback if there are no events
             )}
+            <PaginationUI nextTen={handleNextTen} />
           </div>
-        </div>
-      </div>
-      <div className=" w-full my-8">
-        <div className="join">
-          <button className="join-item btn">«</button>
-          <button className="join-item btn">Page 22</button>
-          <button className="join-item btn">»</button>
         </div>
       </div>
     </div>

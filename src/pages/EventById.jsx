@@ -1,5 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useDeleteEvent, useGetEventById } from "../../utilities/customHooks";
+import {
+  useAddToGoogleCalendar,
+  useAttendEvent,
+  useDeleteEvent,
+  useGetEventById,
+} from "../../utilities/customHooks";
 import {
   IconBxBuildingHouse,
   IconCalendar,
@@ -16,15 +21,30 @@ import { MyContext } from "../App";
 const EventById = () => {
   const { user } = useContext(MyContext); // Ensure toggle is a boolean
   const { event_id } = useParams();
+
+  const [eventToDelete, setEventToDelete] = useState(null);
+  const [eventId, setEventId] = useState(null);
+  const [eventIdCal, setEventIdCal] = useState(null);
+
   const { eventByIdData, isLoading, error } = useGetEventById(
     event_id,
     "/api/get_events"
   );
-  const [eventToDelete, setEventToDelete] = useState(null);
+  const { registered, isLoadingCal, errorCal } = useAttendEvent(eventId);
   const { isLoadingDel, errorDel } = useDeleteEvent(eventToDelete);
+  const { eventAddedURL, sendToCalendar, errorAuthURL } =
+    useAddToGoogleCalendar(eventIdCal);
+
   const navigate = useNavigate();
+
   const handleDelete = () => {
     setEventToDelete(event_id); // Set the event to delete
+  };
+  const handleEvent = () => {
+    setEventId(event_id); // Set eventId
+  };
+  const handleEventToCal = () => {
+    setEventIdCal(event_id); // Set eventId
   };
 
   useEffect(() => {
@@ -33,6 +53,12 @@ const EventById = () => {
       navigate("/");
     }
   }, [isLoadingDel, eventToDelete, errorDel, navigate]);
+
+  useEffect(() => {
+    if (registered) {
+      window.location.href = registered; // Navigate to the checkout URL
+    }
+  }, [registered, navigate]);
 
   if (isLoading) {
     return (
@@ -82,12 +108,21 @@ const EventById = () => {
               </p>
             </div>
           </div>
-          <div className="my-8">
+          <div className="my-8 flex gap-3">
             <Button
               inner_text={"BOOK A SPOT"}
               className={
                 "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
               }
+              onClick={handleEvent}
+            />
+
+            <Button
+              inner_text={"ADD TO CALENDAR"}
+              className={
+                "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
+              }
+              onClick={handleEventToCal}
             />
           </div>
           <div className="leading-[1.8rem]">
@@ -105,7 +140,7 @@ const EventById = () => {
               btnDelMSG="DELETE THIS EVENT"
               delMSG={`You are about to delete the event: "${eventByIdData[0].title}". This action cannot be undone.`}
               handle_delete={handleDelete}
-              modal_id={"del_event_by_id"}
+              modal_id={"event_by_id_page"}
             />
           </div>
         </div>
