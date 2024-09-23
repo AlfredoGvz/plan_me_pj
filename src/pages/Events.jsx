@@ -1,27 +1,12 @@
 import { useState } from "react";
 import { useGetEvents } from "../../utilities/customHooks";
 import { EventTile, PaginationUI } from "../assets/components/Components";
-import { useNavigate } from "react-router-dom";
+import { handleNextTen, handlePreviousTen } from "../../utilities/utilities";
 
 const Events = () => {
-  const navigate = useNavigate();
-  let [indexLast, setIndexLast] = useState(0);
-  const { eventsData, isLoading, error } = useGetEvents(
-    "/api/get_events",
-    indexLast
-  );
-
-  const handleNextTen = () => {
-    let page = 0;
-    const newIndexLast = eventsData.length;
-    let nextTen = eventsData[newIndexLast - 1].eventId;
-    console.log(nextTen);
-
-    setIndexLast(nextTen);
-
-    // Update the URL with the new pagination value (lastSeenId)
-    navigate(`?last_item=${nextTen}`);
-  };
+  const [page, setPage] = useState(1);
+  const { eventsData, allEvents, isLoading, error } =
+    useGetEvents("/api/get_events");
 
   if (isLoading)
     return (
@@ -63,7 +48,14 @@ const Events = () => {
             ) : (
               <p>No events available.</p> // Fallback if there are no events
             )}
-            <PaginationUI nextTen={handleNextTen} />
+            <PaginationUI
+              nextTen={handleNextTen}
+              previousTen={handlePreviousTen}
+              set_page={setPage}
+              page={page}
+              event_data={eventsData}
+              all_events={allEvents}
+            />
           </div>
         </div>
       </div>

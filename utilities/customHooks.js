@@ -1,18 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export function useGetEvents(endpoint, indexLast, filters) {
   const [eventsData, setEventsData] = useState([]); // Initialize as an empty array
+  const [allEvents, setAllEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const fiters = {
     city: "Manchester",
   };
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const searchParams = queryParams.get("last_item");
-  console.log(searchParams);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  if (!searchParams.get("page")) {
+    setSearchParams({ page: 1 });
+  }
+
+  let page_params = searchParams.get("page");
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -28,13 +32,14 @@ export function useGetEvents(endpoint, indexLast, filters) {
               price: "",
               post_code: "",
               city: "",
-              lastSeenId: searchParams,
+              page: page_params || 1,
             }, // Pass filters as query params
           }
         );
 
         if (response && response.data && response.data.events) {
           setEventsData(response.data.events); // Correctly set the data from response
+          setAllEvents(response.data.allEvenst);
         }
       } catch (error) {
         setError(error);
@@ -46,7 +51,7 @@ export function useGetEvents(endpoint, indexLast, filters) {
     fetchEvents();
   }, [endpoint, filters]);
 
-  return { eventsData, isLoading, error };
+  return { eventsData, allEvents, isLoading, error };
 }
 
 export function useGetEventById(event_id, endpoint) {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export async function pingServer() {
   const response = await axios.get("https://sql-be-test.onrender.com/api/ping");
@@ -23,3 +23,9 @@ export async function handleDeleteUser() {
   logOut();
   localStorage.clear();
 }
+
+export function handleNextTen(setSearchParams) {
+  setSearchParams({ page: 3 });
+}
+
+export function handlePreviousTen() {}

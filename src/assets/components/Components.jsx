@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { IconCalendar, IconClock, IconLocationOutline } from "./Icons";
 
 import { useEffect, useState } from "react";
@@ -559,18 +559,44 @@ export function TabContentAtt(props) {
 }
 
 export function PaginationUI(props) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const lastItemId = props.all_events[props.all_events.length - 1].event_id;
+  const lastItmeIdFiltered =
+    props.event_data[props.event_data.length - 1].event_id;
+
+  let page_param = parseInt(searchParams.get("page"));
+  let totalPages = Math.ceil(props.all_events.length / 10);
+
+  // Handle the page decrement
+  const handlePrevPage = () => {
+    if (page_param > 1) {
+      setSearchParams({ page: page_param - 1 });
+    }
+    window.location.reload();
+  };
+  const handleNextPage = () => {
+    setSearchParams({ page: page_param + 1 });
+    window.location.reload();
+  };
+
   return (
     <div className=" my-8 flex ">
       <div className="join mx-auto ">
-        <button className="join-item btn bg-[#015d87] text-[#f9f9f9]">«</button>
+        <button
+          // Disable the button if page_param is 1 (first page)
+          disabled={page_param === 1}
+          className="join-item btn bg-[#015d87] text-[#f9f9f9]"
+          onClick={handlePrevPage} // Call the handler on click
+        >
+          «
+        </button>
         <button className="join-item btn bg-[#015d87] text-[#f9f9f9]">
-          Page 22
+          Page {page_param} of {totalPages}
         </button>
         <button
           className="join-item btn bg-[#015d87] text-[#f9f9f9]"
-          onClick={() => {
-            props.nextTen();
-          }}
+          disabled={lastItemId === lastItmeIdFiltered ? true : false}
+          onClick={handleNextPage}
         >
           »
         </button>
