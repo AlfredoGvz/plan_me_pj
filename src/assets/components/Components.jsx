@@ -169,21 +169,33 @@ export function EmptyModal(props) {
     user_role: userRole,
   };
   const [toggleForms, setToggleForms] = useState("sign in");
-
+  const [loggedUserAtt, setLoggedUser] = useState(null);
+  const [errorAtt, setErrorAtt] = useState(null);
   const navigate = useNavigate(); // Call useNavigate inside the component
 
   const sendLogInCredentials = async (signInCredentials) => {
     try {
-      const loggedUser = await axios.post(
+      // Send login credentials to the server
+      const response = await axios.post(
         `https://sql-be-test.onrender.com/api/sign_in`,
         signInCredentials
       );
-      localStorage.setItem("user", JSON.stringify(loggedUser));
-      navigate("/"); // Redirect after successful login
-      window.location.reload();
-      console.log(loggedUser);
+
+      // Assuming the user data comes back in response.data
+      const loggedUserData = response.data;
+
+      // Update the loggedUserAtt state
+      setLoggedUser(loggedUserData);
+
+      // Store user information in localStorage
+      localStorage.setItem("user", JSON.stringify(loggedUserData));
+
+      // Redirect to the homepage
+      navigate("/");
     } catch (error) {
-      console.log(error);
+      // Handle any login errors
+      setErrorAtt(error);
+      console.error("Login error:", error);
     }
   };
   const sendSignUpCredentials = async (signUpCredentials) => {
@@ -198,6 +210,7 @@ export function EmptyModal(props) {
       console.log(error);
     }
   };
+
   return (
     <div>
       <Button
@@ -302,9 +315,7 @@ export function EmptyModal(props) {
             </div>
             <div className="flex flex-col">
               <Button
-                className={
-                  "border_style border-2 px-5 py-3 whitespace-nowrap w-[40%] mx-auto"
-                }
+                className={`border_style border-2 px-5 py-3 whitespace-nowrap w-[40%] mx-auto`}
                 inner_text={toggleForms === "sign in" ? "Login" : "Sign Up"}
                 onClick={() => {
                   if (toggleForms === "sign in") {
