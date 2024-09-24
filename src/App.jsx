@@ -28,6 +28,7 @@ setInterval(pingServer, 10 * 60 * 1000);
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user, "app 31");
   const values = { user };
 
   return (

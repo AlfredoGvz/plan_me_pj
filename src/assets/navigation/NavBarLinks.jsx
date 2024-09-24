@@ -5,6 +5,11 @@ import AddEvent from "../../pages/AddEvent";
 
 const NavBarLinks = (props) => {
   const { user } = useContext(MyContext);
+  console.log(
+    user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role,
+    "khjgasjhfkgjh"
+  );
+
   let hidden = "";
   !user ? (hidden = "hidden") : (hidden = "block");
   return (
@@ -14,9 +19,8 @@ const NavBarLinks = (props) => {
       </NavLink>
       <NavLink to="/">Events</NavLink>
       {user &&
-        user.data.user.dataTosend.userInDB[0].user_role !== "attendee" && (
-          <AddEvent className={"hidden tablet:block"} />
-        )}
+        user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role !==
+          "attendee" && <AddEvent className={"hidden tablet:block"} />}
     </nav>
   );
 };

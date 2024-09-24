@@ -2,8 +2,12 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { IconCalendar, IconClock, IconLocationOutline } from "./Icons";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useAttendEvent } from "../../../utilities/customHooks";
+
+import {
+  useAttendEvent,
+  useSignIn,
+  useSignUp,
+} from "../../../utilities/customHooks";
 
 export const Button = (props) => {
   return (
@@ -158,6 +162,8 @@ export function EmptyModal(props) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [userRole, setUserRole] = useState("");
+  const { signIn, loading, error, userData } = useSignIn();
+  const { signUp, userDataSignUp, loadingSignUp, errorSignUp } = useSignUp();
   const signInCredentials = {
     email,
     password,
@@ -169,47 +175,17 @@ export function EmptyModal(props) {
     user_role: userRole,
   };
   const [toggleForms, setToggleForms] = useState("sign in");
-  const [loggedUserAtt, setLoggedUser] = useState(null);
-  const [errorAtt, setErrorAtt] = useState(null);
-  const navigate = useNavigate(); // Call useNavigate inside the component
 
-  const sendLogInCredentials = async (signInCredentials) => {
-    try {
-      // Send login credentials to the server
-      const response = await axios.post(
-        `https://sql-be-test.onrender.com/api/sign_in`,
-        signInCredentials
-      );
-
-      // Assuming the user data comes back in response.data
-      const loggedUserData = response.data;
-
-      // Update the loggedUserAtt state
-      setLoggedUser(loggedUserData);
-
-      // Store user information in localStorage
-      localStorage.setItem("user", JSON.stringify(loggedUserData));
-
-      // Redirect to the homepage
-      navigate("/");
-    } catch (error) {
-      // Handle any login errors
-      setErrorAtt(error);
-      console.error("Login error:", error);
-    }
+  const handleSignIN = (credentials) => {
+    signIn(credentials); // Use signIn function here
   };
-  const sendSignUpCredentials = async (signUpCredentials) => {
-    try {
-      const loggedUser = await axios.post(
-        `https://sql-be-test.onrender.com/api/new_user`,
-        signUpCredentials
-      );
-      navigate("/"); // Redirect after successful login
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
+
+  const handleSignUp = (credentials) => {
+    signUp(credentials); // Use signIn function here
   };
+
+  //Testing error messages
+  console.log(error, errorSignUp);
 
   return (
     <div>
@@ -319,12 +295,16 @@ export function EmptyModal(props) {
                 inner_text={toggleForms === "sign in" ? "Login" : "Sign Up"}
                 onClick={() => {
                   if (toggleForms === "sign in") {
-                    sendLogInCredentials(signInCredentials); // Send credentials and handle login
+                    handleSignIN(signInCredentials); // Send credentials and handle login
                   } else {
-                    sendSignUpCredentials(signUpCredentials);
+                    handleSignUp(signUpCredentials);
                   }
                 }}
               />
+
+              {loading && <p className="mx-auto  pt-4">Loading...</p>}
+              {error && <p className="text-red-500 mx-auto  pt-4">{error}</p>}
+
               <div className="divider">OR</div>
               <button
                 className="mb-5"

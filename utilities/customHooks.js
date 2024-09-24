@@ -1,6 +1,79 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+export function useSignIn(credentials) {
+  console.log(credentials);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  const navigate = useNavigate();
+
+  const signIn = async (signInCredentials) => {
+    setLoading(true);
+    setError(null); // Reset error before trying
+
+    try {
+      const response = await axios.post(
+        `https://sql-be-test.onrender.com/api/sign_in`,
+        signInCredentials
+      );
+
+      // Store user data in localStorage
+      localStorage.setItem("user", JSON.stringify(response));
+
+      // Set user data in state
+      setUserData(response);
+
+      // Navigate to the homepage or wherever you want
+      navigate("/");
+
+      // Optionally reload the page to refresh the app state
+      window.location.reload();
+    } catch (error) {
+      console.error("Login error:", error);
+      if (error.response.data.msg.code === "auth/invalid-credential")
+        setError("Invalid Credentials");
+    } finally {
+      setLoading(false); // Stop loading indicator
+    }
+  };
+  console.log(error);
+
+  return { signIn, loading, error, userData };
+}
+
+export function useSignUp(credentials) {
+  const [userDataSignUp, setUserDataSignUp] = useState(null);
+  const [loadingSignUp, setLoadingSignUp] = useState(false);
+  const [errorSignUp, setErrorSignUp] = useState(null);
+
+  const navigate = useNavigate();
+
+  const signUp = async (signUpCredentials) => {
+    setLoadingSignUp(true);
+    setErrorSignUp(null);
+    try {
+      const loggedUser = await axios.post(
+        `https://sql-be-test.onrender.com/api/new_user`,
+        signUpCredentials
+      );
+      console.log(loggedUser);
+      setUserDataSignUp(loggedUser);
+      navigate("/"); // Redirect after successful login
+      window.location.reload();
+    } catch (error) {
+      console.log("error signin up", error);
+      setErrorSignUp(error.response);
+    } finally {
+      setLoadingSignUp(false); // Stop loading indicator
+    }
+  };
+
+  return { signUp, userDataSignUp, loadingSignUp, errorSignUp };
+}
 
 export function useGetEvents(endpoint, indexLast, filters) {
   const [eventsData, setEventsData] = useState([]); // Initialize as an empty array
