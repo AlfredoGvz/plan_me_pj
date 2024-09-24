@@ -397,6 +397,7 @@ export function useAddToGoogleCalendar(eventId) {
         if (response.data) {
           setEventAddedURL(response.data);
           console.log("Calendar URL:", response.data); // Log the calendarURL to verify it's correct
+          window.location.reload();
         } else {
           console.error("calendarURL is missing in response");
         }
