@@ -5,9 +5,9 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 export function useSignIn(credentials) {
   console.log(credentials);
 
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [userData, setUserData] = useState(null);
 
   const navigate = useNavigate();
 
@@ -33,9 +33,15 @@ export function useSignIn(credentials) {
       // Optionally reload the page to refresh the app state
       window.location.reload();
     } catch (error) {
-      console.error("Login error:", error);
+      console.log("the error", error.response.data.msg);
       if (error.response.data.msg.code === "auth/invalid-credential")
         setError("Invalid Credentials");
+      if (error.response.data.msg === "Please verify your email.")
+        setError(
+          "Please verify your email. Check your inbox for a verificayion link."
+        );
+      if (error.response.data.msg === "Email and password are required")
+        setError("Email and password are required");
     } finally {
       setLoading(false); // Stop loading indicator
     }
@@ -60,15 +66,22 @@ export function useSignUp(credentials) {
         `https://sql-be-test.onrender.com/api/new_user`,
         signUpCredentials
       );
-      console.log(loggedUser);
       setUserDataSignUp(loggedUser);
-      navigate("/"); // Redirect after successful login
+      // Only navigate and reload if sign-up is successful
+      navigate("/");
       window.location.reload();
     } catch (error) {
-      console.log("error signin up", error);
-      setErrorSignUp(error.response);
+      // Check if the error message matches
+      if (
+        error.response &&
+        error.response.data.msg === "Email is already in use"
+      ) {
+        setErrorSignUp("Email is already in use");
+      } else {
+        setErrorSignUp("An unexpected error occurred");
+      }
     } finally {
-      setLoadingSignUp(false); // Stop loading indicator
+      setLoadingSignUp(false);
     }
   };
 

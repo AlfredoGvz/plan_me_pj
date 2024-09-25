@@ -9,7 +9,7 @@ import Dashbooard from "./pages/Dashboard";
 import Events from "./pages/Events";
 import EventById from "./pages/EventById";
 import AddEvent from "./pages/AddEvent";
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import { pingServer } from "../utilities/utilities";
 
 export const MyContext = createContext();

@@ -4,6 +4,7 @@ import { IconCalendar, IconClock, IconLocationOutline } from "./Icons";
 import { useEffect, useState } from "react";
 
 import {
+  useAddToGoogleCalendar,
   useAttendEvent,
   useSignIn,
   useSignUp,
@@ -157,13 +158,16 @@ export function Modal(props) {
 }
 
 export function EmptyModal(props) {
+  const [errors, setErrors] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [userRole, setUserRole] = useState("");
+
   const { signIn, loading, error, userData } = useSignIn();
   const { signUp, userDataSignUp, loadingSignUp, errorSignUp } = useSignUp();
+
   const signInCredentials = {
     email,
     password,
@@ -174,6 +178,11 @@ export function EmptyModal(props) {
     user_name: name + " " + surname,
     user_role: userRole,
   };
+
+  useEffect(() => {
+    setErrors(error || errorSignUp);
+  }, [error, errorSignUp]);
+
   const [toggleForms, setToggleForms] = useState("sign in");
 
   const handleSignIN = (credentials) => {
@@ -293,7 +302,8 @@ export function EmptyModal(props) {
               <Button
                 className={`border_style border-2 px-5 py-3 whitespace-nowrap w-[40%] mx-auto`}
                 inner_text={toggleForms === "sign in" ? "Login" : "Sign Up"}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   if (toggleForms === "sign in") {
                     handleSignIN(signInCredentials); // Send credentials and handle login
                   } else {
@@ -302,8 +312,15 @@ export function EmptyModal(props) {
                 }}
               />
 
-              {loading && <p className="mx-auto  pt-4">Loading...</p>}
-              {error && <p className="text-red-500 mx-auto  pt-4">{error}</p>}
+              {loadingSignUp || loading ? (
+                <p className="mx-auto pt-4">Loading...</p>
+              ) : null}
+
+              {errors && (
+                <p className="text-red-500 mx-auto text-center pt-4">
+                  {errors}
+                </p>
+              )}
 
               <div className="divider">OR</div>
               <button
@@ -311,11 +328,18 @@ export function EmptyModal(props) {
                 to={"new_account"}
                 onClick={(e) => {
                   e.preventDefault();
-
+                  setErrors("");
                   if (toggleForms === "sign in") {
                     setToggleForms("sign up");
+                    setEmail("");
+                    setPassword("");
                   } else if (toggleForms === "sign up") {
                     setToggleForms("sign in");
+                    setEmail(""),
+                      setPassword(""),
+                      setName(""),
+                      setSurname(""),
+                      setUserRole("");
                   }
                 }}
               >
@@ -331,6 +355,13 @@ export function EmptyModal(props) {
   );
 }
 export function TabContent(props) {
+  const [eventIdCal, setEventIdCal] = useState(null);
+  const { eventAddedURL, sendToCalendarLoading, errorAuthURL } =
+    useAddToGoogleCalendar(eventIdCal);
+  const handleEventToCal = (event_id) => {
+    setEventIdCal(event_id); // Set eventId
+  };
+
   return (
     <div
       role="tablist"
@@ -429,7 +460,7 @@ export function TabContent(props) {
                       {currentItem.start_time}
                     </p>
                   </div>
-                  <div className="flex flex-col gap-2  mx-auto ">
+                  <div className="flex flex-col gap-2  mx-auto">
                     <Link
                       to={`/events/${currentItem.event_id}/details`}
                       className="flex items-center"
@@ -450,15 +481,19 @@ export function TabContent(props) {
                       {currentItem.start_time}
                     </p>
                   </div>
-
-                  {/* <div className=" mobile:mx-auto mt-7 laptop:my-auto tablet:col-span-2 laptop:col-span-1 ">
-                    <Modal
-                      btnDelMSG="DELETE EVENT"
-                      delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
-                      modal_id={"del_evn_mod"}
-                      handle_delete={() => handleDelete(currentItem.event_id)}
-                    />
-                  </div> */}
+                  <div className="flex justify-center items-center mt-4 laptop:mt-0 ">
+                    {sendToCalendarLoading ? (
+                      <div className={"m-auto loader2"}></div>
+                    ) : (
+                      <Button
+                        inner_text={"ADD TO CALENDAR"}
+                        className={
+                          "booking_spot_btn border-2 py-3 px-2 whitespace-nowrap m-auto"
+                        }
+                        onClick={() => handleEventToCal(currentItem.event_id)}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             ))
@@ -472,6 +507,13 @@ export function TabContent(props) {
 }
 
 export function TabContentAtt(props) {
+  const [eventIdCal, setEventIdCal] = useState(null);
+  const { eventAddedURL, sendToCalendarLoading, errorAuthURL } =
+    useAddToGoogleCalendar(eventIdCal);
+  const handleEventToCal = (event_id) => {
+    setEventIdCal(event_id); // Set eventId
+  };
+
   console.log(props.booked_events);
 
   return (
@@ -529,14 +571,19 @@ export function TabContentAtt(props) {
                     </p>
                   </div>
 
-                  {/* <div className=" mobile:mx-auto mt-7 laptop:my-auto tablet:col-span-2 laptop:col-span-1 ">
-                    <Modal
-                      btnDelMSG="DELETE EVENT"
-                      delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
-                      modal_id={"del_evn_mod"}
-                      handle_delete={() => handleDelete(currentItem.event_id)}
-                    />
-                  </div> */}
+                  <div className="flex justify-center items-center mt-4 laptop:mt-0 ">
+                    {sendToCalendarLoading ? (
+                      <div className={"m-auto loader2"}></div>
+                    ) : (
+                      <Button
+                        inner_text={"ADD TO CALENDAR"}
+                        className={
+                          "booking_spot_btn border-2 py-3 px-2 whitespace-nowrap m-auto"
+                        }
+                        onClick={() => handleEventToCal(currentItem.event_id)}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             ))

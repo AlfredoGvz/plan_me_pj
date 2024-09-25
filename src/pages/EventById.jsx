@@ -24,7 +24,6 @@ const EventById = () => {
 
   const [eventToDelete, setEventToDelete] = useState(null);
   const [eventId, setEventId] = useState(null);
-  const [eventIdCal, setEventIdCal] = useState(null);
 
   const { eventByIdData, isLoading, error } = useGetEventById(
     event_id,
@@ -32,8 +31,6 @@ const EventById = () => {
   );
   const { registered, isLoadingCal, errorCal } = useAttendEvent(eventId);
   const { isLoadingDel, errorDel } = useDeleteEvent(eventToDelete);
-  const { eventAddedURL, sendToCalendar, errorAuthURL } =
-    useAddToGoogleCalendar(eventIdCal);
 
   const navigate = useNavigate();
 
@@ -42,9 +39,6 @@ const EventById = () => {
   };
   const handleEvent = () => {
     setEventId(event_id); // Set eventId
-  };
-  const handleEventToCal = () => {
-    setEventIdCal(event_id); // Set eventId
   };
 
   useEffect(() => {
@@ -115,14 +109,6 @@ const EventById = () => {
                 "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
               }
               onClick={handleEvent}
-            />
-
-            <Button
-              inner_text={"ADD TO CALENDAR"}
-              className={
-                "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
-              }
-              onClick={handleEventToCal}
             />
           </div>
           <div className="leading-[1.8rem]">

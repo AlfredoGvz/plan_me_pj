@@ -230,17 +230,11 @@ body {
 ** === END OF DASHBOARD CLASSES ===
 */
 
-.vertical-text {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+/*
+** === ANIMATION CLASSES ===
+*/
 
-  // For screens larger than laptop size (1024px and above)
-  @media (min-width: 1024px) {
-    writing-mode: horizontal-tb; // Reverts to horizontal text flow
-    transform: rotate(0deg); // Resets the rotation
-  }
-}
-
+/* === LOADER 1 === */
 .loader {
   width: 55px;
   aspect-ratio: 1;
@@ -254,6 +248,7 @@ body {
     #0000 90deg,
     #827c88 0
   );
+
   background: var(--g1), var(--g1), var(--g1), var(--g1), var(--g2), var(--g2),
     var(--g2), var(--g2);
   background-position: 0 0, 100% 0, 100% 100%, 0 100%;
@@ -276,6 +271,46 @@ body {
   }
   100% {
     background-size: 35px 15px, 15px 15px, 15px 35px, 35px 35px;
+  }
+}
+
+/* === LOADER 2 === */
+
+/* HTML: <div class="loader"></div> */
+.loader2 {
+  width: fit-content;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 20px;
+  padding-bottom: 8px;
+  background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
+  animation: l2 2s linear infinite;
+}
+.loader2:before {
+  content: "Loading...";
+}
+@keyframes l2 {
+  to {
+    background-size: 100% 3px;
+  }
+}
+
+/*
+** === END OF ANIMATION CLASSES ===
+*/
+
+/*
+** === MISCELLANEOUS ===
+*/
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+
+  // For screens larger than laptop size (1024px and above)
+  @media (min-width: 1024px) {
+    writing-mode: horizontal-tb; // Reverts to horizontal text flow
+    transform: rotate(0deg); // Resets the rotation
   }
 }
 
