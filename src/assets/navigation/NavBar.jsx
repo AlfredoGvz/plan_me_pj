@@ -19,7 +19,7 @@ export const NavBar = () => {
   return (
     <nav className="flex justify-between items-center text-white laptop:py-4 laptop:px-20 px-10 h-24 nav-bar">
       <Link
-        to={"/dashboard"}
+        to={user ? "/dashboard" : "/"}
         className="hidden tablet:flex gap-2 items-center "
       >
         <BrandLogo

@@ -44,3 +44,9 @@ The dashboard provides a clear view of your activity within the app. It will dis
 
 - Organizers have the ability to delete only the events that they have created.
 - All users can delete their accounts at any time. This action will permanently remove all their personal data, including email addresses and any associated details, from the system.
+
+# Hosting
+
+This application is deployed on Netlify, a platform that allows for easy and efficient deployment of web applications. Netlify provides a seamless integration with Git repositories, enabling automatic deployment whenever changes are made to the code. As a result, users can access the most up-to-date version of the app directly from their browsers without any additional setup required on their end.
+
+Link to the hosted site: [Plan Me Web Application](https://plan-me-lp.netlify.app/?page=1)
