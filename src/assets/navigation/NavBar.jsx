@@ -27,7 +27,7 @@ export const NavBar = () => {
           width={"4rem"}
           height={"4rem"}
         />
-        <p className="londrina-shadow text-[2rem]">PLANE ME</p>
+        <p className="londrina-shadow text-[2rem]">PLAN ME</p>
       </Link>
       <div className="flex items-center gap-6 laptop:text-[1.15rem]">
         <NavBarLinks className={"flex gap-6"} />
