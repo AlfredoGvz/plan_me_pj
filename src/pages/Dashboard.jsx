@@ -25,9 +25,12 @@ const Dashbooard = () => {
   const [endPointCalendar, setendPointCalendar] = useState(null);
   const name = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_name;
   const user_role = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role;
+  const calendar_activated =
+    user?.data?.user?.dataTosend?.userInDB?.[0]?.calendar_activated;
   const handleDeleteUser = async () => {
-    await axios.delete(`https://shttps://event-planing-project-api.onrender.com
-ql-be-test.onrender.com/api/delete_user`);
+    await axios.delete(
+      `https://event-planing-project-api.onrender.com/api/delete_user`
+    );
     navigate("/");
     logOut();
     localStorage.clear();
@@ -42,7 +45,7 @@ ql-be-test.onrender.com/api/delete_user`);
     setEndPointHosted("/api/get_hosted_events");
     setEndPointBooked("/api/get_booked_events");
   }, [hostedEvents, bookedEvents]);
-
+  console.log(calendar_activated);
   const firstName = name ? name.split(" ") : "";
   const navigate = useNavigate();
   const handleCalendarAuth = (endPointCal) => {
@@ -55,6 +58,16 @@ ql-be-test.onrender.com/api/delete_user`);
       window.open(authURL, "_blank");
     }
   }, [authURL]);
+
+  if (isLoading || isBookedLoading)
+    return (
+      <div className=" body-height flex justify-center items-center">
+        <div>
+          <div className="loader"></div>
+        </div>
+      </div>
+    );
+
   return (
     <div className="w-[90%] tablet:w-[80%] desktop:grid mx-auto grid-cols-[35%_65%] gap-6 h-[calc(100vh-96px)]">
       {/* WELCOME PANEL*/}
@@ -81,6 +94,7 @@ ql-be-test.onrender.com/api/delete_user`);
           </NavLink>
           <button
             className="btn btn-outline btn-secondary text-nowrap"
+            disabled={calendar_activated === true ? true : false}
             onClick={() => {
               handleCalendarAuth("/api/google_auth/add_calendar");
             }}

@@ -103,8 +103,8 @@ const EventById = () => {
             </div>
           </div>
           <div className="my-8 flex gap-3">
-            {user?.data?.user?.dataTosend?.userInDB[0]?.user_role ===
-            "attendee" ? (
+            {user?.data?.user?.dataTosend?.userInDB[0]?.user_name !=
+            eventByIdData[0].organizer_name ? (
               <Button
                 inner_text={"BOOK A SPOT"}
                 className={
