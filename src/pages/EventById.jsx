@@ -103,31 +103,35 @@ const EventById = () => {
             </div>
           </div>
           <div className="my-8 flex gap-3">
-            <Button
-              inner_text={"BOOK A SPOT"}
+            {user?.data?.user?.dataTosend?.userInDB[0]?.user_role ===
+            "attendee" ? (
+              <Button
+                inner_text={"BOOK A SPOT"}
+                className={
+                  "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
+                }
+                onClick={handleEvent}
+              />
+            ) : null}
+
+            <div
               className={
-                "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
+                eventByIdData[0]?.organizer_id ===
+                user?.data?.user?.dataTosend?.userInDB[0]?.user_id
+                  ? "block"
+                  : "hidden"
               }
-              onClick={handleEvent}
-            />
+            >
+              <Modal
+                btnDelMSG="DELETE THIS EVENT"
+                delMSG={`You are about to delete the event: "${eventByIdData[0].title}". This action cannot be undone.`}
+                handle_delete={handleDelete}
+                modal_id={"event_by_id_page"}
+              />
+            </div>
           </div>
           <div className="leading-[1.8rem]">
             <p>{eventByIdData[0].description}</p>
-          </div>
-          <div
-            className={
-              eventByIdData[0]?.organizer_id ===
-              user?.data?.user?.dataTosend?.userInDB[0]?.user_id
-                ? "block"
-                : "hidden"
-            }
-          >
-            <Modal
-              btnDelMSG="DELETE THIS EVENT"
-              delMSG={`You are about to delete the event: "${eventByIdData[0].title}". This action cannot be undone.`}
-              handle_delete={handleDelete}
-              modal_id={"event_by_id_page"}
-            />
           </div>
         </div>
       </div>

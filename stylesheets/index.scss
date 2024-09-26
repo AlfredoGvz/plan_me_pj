@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 //Fonts
-.rampart-one-regular {
+.londrina-shadow {
   font-family: "Londrina Shadow", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -28,11 +28,35 @@
 }
 body {
   font-family: "Poppins", sans-serif;
+}
 
-  /*
+/*
+** === NAVBAR CLASSES ===
+*/
+
+.nav-bar {
+  a,
+  button {
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: #ff8fa3;
+    }
+  }
+
+  // Active link styling (applies to the "active" class set by NavLink)
+  a.active,
+  button.active {
+    color: #f3722c;
+  }
+}
+
+// Active link styling (applies to the "active" class set by NavLink)
+
+/*
 ** === SMALL COMPONENTS CLASSES ===
 */
-}
 
 .event-tile-gradient-background {
   background-image: linear-gradient(
@@ -277,24 +301,26 @@ body {
 /* === LOADER 2 === */
 
 /* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
 .loader2 {
-  width: fit-content;
-  font-weight: bold;
-  font-family: sans-serif;
-  font-size: 20px;
-  padding-bottom: 8px;
-  background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
-  animation: l2 2s linear infinite;
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #25b09b;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
 }
-.loader2:before {
-  content: "Loading...";
-}
-@keyframes l2 {
+@keyframes l3 {
   to {
-    background-size: 100% 3px;
+    transform: rotate(1turn);
   }
 }
-
 /*
 ** === END OF ANIMATION CLASSES ===
 */

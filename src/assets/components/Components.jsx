@@ -300,7 +300,7 @@ export function EmptyModal(props) {
             </div>
             <div className="flex flex-col">
               <Button
-                className={`border_style border-2 px-5 py-3 whitespace-nowrap w-[40%] mx-auto`}
+                className={`border_style border-2 px-5 py-3 whitespace-nowrap w-[40%] mx-auto booking_spot_btn `}
                 inner_text={toggleForms === "sign in" ? "Login" : "Sign Up"}
                 onClick={(e) => {
                   e.preventDefault();
@@ -360,12 +360,15 @@ export function EmptyModal(props) {
     </div>
   );
 }
+
 export function TabContent(props) {
-  const [eventIdCal, setEventIdCal] = useState(null);
+  const [loadingEventId, setLoadingEventId] = useState(null); // Track which event is loading
   const { eventAddedURL, sendToCalendarLoading, errorAuthURL } =
-    useAddToGoogleCalendar(eventIdCal);
+    useAddToGoogleCalendar(loadingEventId);
+
   const handleEventToCal = (event_id) => {
-    setEventIdCal(event_id); // Set eventId
+    setLoadingEventId(event_id); // Set the event that is currently being processed
+    // Your logic to add the event to the calendar goes here
   };
 
   return (
@@ -487,9 +490,12 @@ export function TabContent(props) {
                       {currentItem.start_time}
                     </p>
                   </div>
-                  <div className="flex justify-center items-center mt-4 laptop:mt-0 ">
-                    {sendToCalendarLoading ? (
-                      <div className={"m-auto loader2"}></div>
+                  <div className="flex justify-center items-center mt-4 laptop:mt-0">
+                    {loadingEventId === currentItem.event_id ? ( // Check if this item is loading
+                      <div
+                        className={"m-auto loader2"}
+                        id={currentItem.event_id}
+                      ></div>
                     ) : (
                       <Button
                         inner_text={"ADD TO CALENDAR"}
@@ -578,7 +584,7 @@ export function TabContentAtt(props) {
                   </div>
 
                   <div className="flex justify-center items-center mt-4 laptop:mt-0 ">
-                    {sendToCalendarLoading ? (
+                    {eventIdCal === currentItem.event_id ? (
                       <div className={"m-auto loader2"}></div>
                     ) : (
                       <Button

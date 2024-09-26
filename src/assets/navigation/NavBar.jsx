@@ -17,38 +17,43 @@ export const NavBar = () => {
   console.log(user);
   const navigate = useNavigate();
   return (
-    <nav className="flex justify-between items-center text-white laptop:py-4 laptop:px-20 px-10 h-24 ">
-      <NavBarLinks className={"flex gap-6"} />
-      <BrandLogo
-        className={"rampart-one-regular text-[3rem] hidden tablet:block"}
-      />
-      <div className="flex gap-2">
-        {/* Login button */}
-        {!user ? (
-          <EmptyModal
-            btnDelMSG={"Get Started"}
-            input_styles={
-              "bg-[#778da9] flex rounded-md w-full px-[.5rem] py-[.5rem]"
-            }
-          />
-        ) : (
-          <Button
-            inner_text={"Logout"}
-            onClick={() => {
-              logOut();
-              navigate("/");
-            }}
-          />
-        )}
+    <nav className="flex justify-between items-center text-white laptop:py-4 laptop:px-20 px-10 h-24 nav-bar">
+      <div className="hidden tablet:flex gap-2 items-center ">
+        <BrandLogo
+          className={"rampart-one-regular text-[3rem] hidden tablet:block "}
+          width={"4rem"}
+          height={"4rem"}
+        />
+        <p className="londrina-shadow text-[2rem]">PLANE ME</p>
+      </div>
+      <div className="flex items-center gap-6 laptop:text-[1.15rem]">
+        <NavBarLinks className={"flex gap-6"} />
+        <div className="flex gap-2">
+          {/* Login button */}
+          {!user ? (
+            <EmptyModal
+              btnDelMSG={"Get Started"}
+              input_styles={"bg-[#778da9] flex  w-full px-[.5rem] py-[.5rem]"}
+            />
+          ) : (
+            <Button
+              inner_text={"Logout"}
+              onClick={() => {
+                logOut();
+                navigate("/");
+              }}
+            />
+          )}
 
-        {/* Social media */}
-        <div className="tablet:flex gap-6 items-center px-4 hidden">
-          <Link>
-            <IconYoutubeOutlined height={"1.8rem"} width={"1.8rem"} />
-          </Link>
-          <Link>
-            <IconInstagramOutline height={"1.5rem"} width={"1.5rem"} />
-          </Link>
+          {/* Social media */}
+          <div className="tablet:flex gap-6 items-center px-4 hidden">
+            <Link>
+              <IconYoutubeOutlined height={"1.8rem"} width={"1.8rem"} />
+            </Link>
+            <Link>
+              <IconInstagramOutline height={"1.5rem"} width={"1.5rem"} />
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
