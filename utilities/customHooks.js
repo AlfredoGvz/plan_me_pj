@@ -17,7 +17,7 @@ export function useSignIn(credentials) {
 
     try {
       const response = await axios.post(
-        `https://sql-be-test.onrender.com/api/sign_in`,
+        `https://event-planing-project-api.onrender.com/api/sign_in`,
         signInCredentials
       );
 
@@ -34,14 +34,26 @@ export function useSignIn(credentials) {
       window.location.reload();
     } catch (error) {
       console.log("the error", error.response.data.msg);
-      if (error.response.data.msg.code === "auth/invalid-credential")
+      if (error.response.data.msg.code === "auth/invalid-credential") {
         setError("Invalid Credentials");
-      if (error.response.data.msg === "Please verify your email.")
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+      }
+      if (error.response.data.msg === "Please verify your email.") {
         setError(
           "Please verify your email. Check your inbox for a verificayion link."
         );
-      if (error.response.data.msg === "Email and password are required")
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+      }
+      if (error.response.data.msg === "Email and password are required") {
         setError("Email and password are required");
+        setTimeout(() => {
+          setError("");
+        }, 3000);
+      }
     } finally {
       setLoading(false); // Stop loading indicator
     }
@@ -63,13 +75,16 @@ export function useSignUp(credentials) {
     setErrorSignUp(null);
     try {
       const loggedUser = await axios.post(
-        `https://sql-be-test.onrender.com/api/new_user`,
+        `https://event-planing-project-api.onrender.com/api/new_user`,
         signUpCredentials
       );
+
       setUserDataSignUp(loggedUser);
       // Only navigate and reload if sign-up is successful
-      navigate("/");
-      window.location.reload();
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       // Check if the error message matches
       if (
@@ -77,8 +92,18 @@ export function useSignUp(credentials) {
         error.response.data.msg === "Email is already in use"
       ) {
         setErrorSignUp("Email is already in use");
-      } else {
-        setErrorSignUp("An unexpected error occurred");
+        setTimeout(() => {
+          setErrorSignUp("");
+        }, 3000);
+      }
+      if (
+        error.response &&
+        error.response.data.msg === "Looks like some details are missing"
+      ) {
+        setErrorSignUp("Looks like some details are missing");
+        setTimeout(() => {
+          setErrorSignUp("");
+        }, 3000);
       }
     } finally {
       setLoadingSignUp(false);
@@ -107,7 +132,7 @@ export function useGetEvents(endpoint, indexLast, filters) {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `https://sql-be-test.onrender.com${endpoint}`,
+          `https://event-planing-project-api.onrender.com${endpoint}`,
           {
             params: {
               organizer_id: "",
@@ -148,7 +173,7 @@ export function useGetEventById(event_id, endpoint) {
     const fetchEventById = async () => {
       try {
         const response = await axios.get(
-          `https://sql-be-test.onrender.com${endpoint}/${event_id}`
+          `https://event-planing-project-api.onrender.com${endpoint}/${event_id}`
         );
         if (response && response.data && response.data.event) {
           setEventByIdData(response.data.event); // Correctly set the data from response
@@ -175,7 +200,7 @@ export function useLogIn(endpoint, credentials, send, setSend) {
         setIsLoading(true);
         try {
           const logger = await axios.post(
-            `https://sql-be-test.onrender.com${endpoint}`,
+            `https://event-planing-project-api.onrender.com${endpoint}`,
             credentials
           );
           setUserLogged(logger.data.user);
@@ -205,7 +230,7 @@ export function useSender(endpoint, event) {
       setIsLoading(true); // Set loading to true when the request starts
       try {
         const logger = await axios.post(
-          `https://sql-be-test.onrender.com${endpoint}`,
+          `https://event-planing-project-api.onrender.com${endpoint}`,
           event
         );
         console.log("Event sent successfully", logger.data);
@@ -235,7 +260,7 @@ export function useDeleteEvent(event_id) {
       setIsLoadingDel(true); // Set loading to true when the request starts
       try {
         const del = await axios.delete(
-          `https://sql-be-test.onrender.com/api/${event_id}/delete_event`
+          `https://event-planing-project-api.onrender.com/api/${event_id}/delete_event`
         );
         console.log("Event deleted successfully", del);
       } catch (err) {
@@ -264,7 +289,7 @@ export function useAttendEvent(event_id) {
       setIsLoadingCal(true); // Set loading to true when the request starts
       try {
         const register = await axios.post(
-          `https://sql-be-test.onrender.com/api/${event_id}/register`
+          `https://event-planing-project-api.onrender.com/api/${event_id}/register`
         );
         const checkoutURL = register.data.attendee.checkoutSession.url;
         setRegistered(checkoutURL); // Set checkout URL
@@ -297,7 +322,7 @@ export function useGetHostedEvents(endpoint) {
 
       try {
         const response = await axios.get(
-          `https://sql-be-test.onrender.com${endpoint}`
+          `https://event-planing-project-api.onrender.com${endpoint}`
         );
         console.log(response);
         setHostedEvents(response.data.myEvents); // Ensure you're accessing `myEvents` correctly from response
@@ -329,7 +354,7 @@ export function useGetBookedEvents(endpoint) {
 
         try {
           const response = await axios.get(
-            `https://sql-be-test.onrender.com${endpoint}`
+            `https://event-planing-project-api.onrender.com${endpoint}`
           );
           console.log(response);
           setBookedEvents(response.data.userBookedEvents); // Ensure you're accessing `myEvents` correctly from response
@@ -362,7 +387,7 @@ export function useActivateCalendar(endpointCalendar) {
     const fetchAuthURL = async () => {
       try {
         const response = await axios.get(
-          `https://sql-be-test.onrender.com${endpointCalendar}`
+          `https://event-planing-project-api.onrender.com${endpointCalendar}`
         );
         console.log("Response data:", response.data); // Log full response
         if (response.data && response.data.calendarURL) {
@@ -377,7 +402,7 @@ export function useActivateCalendar(endpointCalendar) {
       } finally {
         setAuthURLLoading(false);
         const retrieveUpdatedUser = await axios.get(
-          `https://sql-be-test.onrender.com/api/current_user`
+          `https://event-planing-project-api.onrender.com/api/current_user`
         );
         console.log(retrieveUpdatedUser.data);
       }
@@ -404,7 +429,7 @@ export function useAddToGoogleCalendar(eventId) {
     const addEventToCalendar = async () => {
       try {
         const response = await axios.get(
-          `https://sql-be-test.onrender.com/api/google_calendar/${eventId}/add_event`
+          `https://event-planing-project-api.onrender.com/api/google_calendar/${eventId}/add_event`
         );
         console.log("Response data:", response); // Log full response
         if (response.data) {

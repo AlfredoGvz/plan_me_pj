@@ -26,7 +26,8 @@ const Dashbooard = () => {
   const name = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_name;
   const user_role = user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role;
   const handleDeleteUser = async () => {
-    await axios.delete(`https://sql-be-test.onrender.com/api/delete_user`);
+    await axios.delete(`https://shttps://event-planing-project-api.onrender.com
+ql-be-test.onrender.com/api/delete_user`);
     navigate("/");
     logOut();
     localStorage.clear();

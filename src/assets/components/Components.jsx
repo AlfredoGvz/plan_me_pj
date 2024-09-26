@@ -312,9 +312,15 @@ export function EmptyModal(props) {
                 }}
               />
 
-              {loadingSignUp || loading ? (
+              {(loadingSignUp || loading) && (
                 <p className="mx-auto pt-4">Loading...</p>
-              ) : null}
+              )}
+
+              {!loadingSignUp && userDataSignUp?.data?.msg && (
+                <p className="text-center pt-3 text-green-400">
+                  {userDataSignUp.data.msg}
+                </p>
+              )}
 
               {errors && (
                 <p className="text-red-500 mx-auto text-center pt-4">

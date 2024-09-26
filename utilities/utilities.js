@@ -2,13 +2,17 @@ import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export async function pingServer() {
-  const response = await axios.get("https://sql-be-test.onrender.com/api/ping");
+  const response = await axios.get(
+    "https://event-planing-project-api.onrender.com/api/ping"
+  );
   console.log(response);
 }
 
 export async function logOut() {
   try {
-    await axios.post(`https://sql-be-test.onrender.com/api/sign_out`);
+    await axios.post(
+      `https://event-planing-project-api.onrender.com/api/sign_out`
+    );
     window.location.reload();
     localStorage.clear();
   } catch (error) {
@@ -18,7 +22,9 @@ export async function logOut() {
 export async function handleDeleteUser() {
   const navigate = useNavigate();
 
-  await axios.delete(`https://sql-be-test.onrender.com/api/delete_user`);
+  await axios.delete(
+    `https://event-planing-project-api.onrender.com/api/delete_user`
+  );
   navigate("/");
   logOut();
   localStorage.clear();
