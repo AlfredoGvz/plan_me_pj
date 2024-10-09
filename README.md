@@ -1,6 +1,20 @@
 # PLAN ME FRONT END
 
-This repository holds the front-end of a web app built using React, Tailwind CSS and DaisyUi components. It lets users easily explore local activities and events happening around them and even book a spot. It's designed to make finding and reserving fun things to do simple and convenient!
+Plan Me is a community-based web application that allows local businesses to share events with community members. Members can explore, book, and optionally pay to participate in these events. Events can range from free activities to paid ones. Users can also add the events they sign up for to their personal calendars, ensuring they never miss out.
+
+This project was built using React + Vite, TailwindCSS, DaisyUI, and a custom Node.js API. It integrates the Google Calendar API for calendar management, allowing users to add events to their calendars after booking.
+
+Link to the hosted site: [Plan Me Web Application](https://plan-me-lp.netlify.app/?page=1)
+
+# Tech Stack
+
+- Frontend: React + Vite, TailwindCSS, DaisyUI
+- Backend: Custom-built Node.js API
+- Authentication: Google OAuth (for calendar access)
+- Calendar Integration: Google Calendar API
+- Deployment: Frontend hosted on Netlify, backend on Render
+
+Node version at time of project development: v22.6.0
 
 # Installation
 
@@ -26,27 +40,15 @@ npm run dev
 
 ## Usage
 
-Once the app is running, everything will be visible in your browser, as this part of the project is highly visual.
+Once the app is running locally or on the hosted site, users can:
 
-- Users can create accounts either as attendees or organizers using their email addresses.
-- After signing up, users will receive a verification email.
-- If users don't verify their email, they can still browse and read about events, but won't be able to book events or add them to their calendar.
-
-This setup ensures that only verified users can fully participate, while still allowing everyone to explore available events.
-
-The user interface (UI) differs depending on whether you sign up as an organizer or an attendee. If you're an organizer, the app allows you to create and publish events. You can do this easily from your dashboard or by clicking the "Add Event" button located in the navigation bar.
-
-Additionally, users have the option to add events to their Google Calendar. To use this feature, the app requires access to your calendar. From the dashboard, users can add a calendar, which will prompt them to authenticate with their Google account and grant the necessary permissions. Once access is given, the app can automatically modify and update your calendar whenever you add a new event.
-
-The dashboard provides a clear view of your activity within the app. It will display any events you have booked to attend. If you are an organizer, you will also see a list of events you are hosting, alongside any events you have booked as an attendee. This way, both organizers and attendees can easily manage their event schedules from one place.
-
-#### Deletions
-
-- Organizers have the ability to delete only the events that they have created.
+- Create an account as an attendee or organizer. A verification email will be sent to your address.
+- Browse events: Unverified users can still explore the event listings but cannot book events.
+- Book events: Verified users can book spots for events and opt to pay for paid events.
+- Add events to Google Calendar: The app prompts users to authenticate with Google and grant calendar permissions. Once permission is granted, events will be added or modified automatically.
+  **User Roles**
+  Attendees: Can book events and view their event schedule from the dashboard.
+  Organizers: Can create, manage, and delete their events, as well as view booked events in their dashboard.
+  **Deletions**
+- Organizers can delete only the events they have created.
 - All users can delete their accounts at any time. This action will permanently remove all their personal data, including email addresses and any associated details, from the system.
-
-# Hosting
-
-This application is deployed on Netlify, a platform that allows for easy and efficient deployment of web applications. Netlify provides a seamless integration with Git repositories, enabling automatic deployment whenever changes are made to the code. As a result, users can access the most up-to-date version of the app directly from their browsers without any additional setup required on their end.
-
-Link to the hosted site: [Plan Me Web Application](https://plan-me-lp.netlify.app/?page=1)
