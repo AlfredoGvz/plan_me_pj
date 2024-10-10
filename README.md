@@ -76,6 +76,17 @@ To create events as an organizer:
 
 If events are free of charge, just type in "free" in the Price field, otherwise specify the amount to pay.
 
+**Purchase**
+
+To test the purchase features, in the Events page, when clicking on "Book a Spot", users will be redirected to the checkout. Use the following details to proceed with the purchase:
+
+Email: test.email.events@gmail.com
+Card number: 4242 4242 4242 4242
+Expiration date: Any date user selects will work
+CVC: 424
+Cardholder name: Any name user selects will work
+Postal code: Any postal code user selects will work
+
 **Add Events to your Calendar**
 
 Once users book an event, they can add it to their Google Calendar directly from the dashboard. Under the "Next Meetings" tab, a list of all upcoming events will be displayed, and next to each event, there will be an "Add To Calendar" button. Simply click the button to add the event to your calendar. Please note that before using this feature, users must grant the app permission to modify their Google Calendar.
