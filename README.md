@@ -1,6 +1,6 @@
 # PLAN ME FULLSTACK WEB APP
 
-Plan Me is a community-based web application that allows local businesses to share events with community members. Events can range from free activities to paid ones. Members can explore, book and pay to participate in these events or pick the free of charge ones. Users can also add the events they sign up for to their personal calendars, ensuring they never miss out.
+Plan Me is a web application that allows local businesses to share events with community members. Events can range from free activities to paid ones. Members can explore, book and pay to participate in these events or pick the free of charge ones. Users can also add the events they sign up for to their personal calendars, ensuring they never miss out.
 
 This project was built using React + Vite, TailwindCSS, DaisyUI, and a custom Node.js API. It integrates the Google Calendar API for calendar management, allowing users to add events to their calendars after booking.
 
