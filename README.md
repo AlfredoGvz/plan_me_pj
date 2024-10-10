@@ -42,9 +42,10 @@ npm run dev
 
 Once the app is running locally or on the hosted site, users can:
 
-Create your own account, or log in to the app using the preset account:
+Create their own account, or log in to the app using the preset account:
 
 **email:** test.email.events@gmail.com
+
 **password:** test_user123
 
 Creating your own account:
@@ -54,11 +55,12 @@ Creating your own account:
 - Book events: Verified users can book spots for events and opt to pay for paid events.
 - Add events to Google Calendar: The app prompts users to authenticate with Google and grant calendar permissions. Once permission is granted, events will be added or modified automatically.
 
-  **User Roles**
-  Attendees: Can book events and view their event schedule from the dashboard.
-  Organizers: Can create, manage, and delete their events, as well as view booked events in their dashboard.
+**User Roles**
 
-  **Deletions**
+Attendees: Can book events and view their event schedule from the dashboard.
+Organizers: Can create, manage, and delete their events, as well as view booked events in their dashboard.
+
+**Deletions**
 
 - Organizers can delete only the events they have created.
 - All users can delete their accounts at any time. This action will permanently remove all their personal data, including email addresses and any associated details, from the system.
