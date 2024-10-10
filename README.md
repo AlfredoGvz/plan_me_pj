@@ -11,10 +11,10 @@ Link to the hosted site: [Plan Me Web Application](https://plan-me-lp.netlify.ap
 # Tech Stack
 
 - Frontend: React + Vite, TailwindCSS, DaisyUI, Sass
-- Backend: Custom-built Node.js API, Stripe API, PostgreSQL (Database)
-- Authentication: Google OAuth (for calendar access), Firebase (Backend)
+- Backend: Custom-built Node.js API, Stripe API, PostgreSQL (Database), Firebase (User Authentication)
+- Authentication: Google OAuth (for calendar access)
 - Calendar Integration: Google Calendar API
-- Deployment: Frontend hosted on Netlify, backend on Render, Aiven (Hosted database)
+- Deployment and Hosting: Frontend hosted on Netlify, backend on Render, Aiven (Hosted database)
 
 Node version at time of project development: v22.6.0
 
@@ -40,7 +40,7 @@ npm run dev
 
 **run dev** is a script that starts the development server. When you run this command, it launches the app locally so you can see it in your browser while you are building and testing it. In short, npm run dev starts the app in development mode, so you can see any updates live as you work on it.
 
-## Usage
+# Usage
 
 Once the app is running locally or on the hosted site, users can:
 
