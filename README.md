@@ -8,11 +8,11 @@ Link to the hosted site: [Plan Me Web Application](https://plan-me-lp.netlify.ap
 
 # Tech Stack
 
-- Frontend: React + Vite, TailwindCSS, DaisyUI
-- Backend: Custom-built Node.js API
-- Authentication: Google OAuth (for calendar access)
+- Frontend: React + Vite, TailwindCSS, DaisyUI, Sass
+- Backend: Custom-built Node.js API, Stripe API, PostgreSQL (Database)
+- Authentication: Google OAuth (for calendar access), Firebase (Backend)
 - Calendar Integration: Google Calendar API
-- Deployment: Frontend hosted on Netlify, backend on Render
+- Deployment: Frontend hosted on Netlify, backend on Render, Aiven (Hosted database)
 
 Node version at time of project development: v22.6.0
 
@@ -42,13 +42,23 @@ npm run dev
 
 Once the app is running locally or on the hosted site, users can:
 
-- Create an account as an attendee or organizer. A verification email will be sent to your address.
+Create your own account, or log in to the app using the preset account:
+
+**email:** test.email.events@gmail.com
+**password:** test_user123
+
+Creating your own account:
+
+- Create an account as an attendee or organizer. A verification email will be sent to your inbox.
 - Browse events: Unverified users can still explore the event listings but cannot book events.
 - Book events: Verified users can book spots for events and opt to pay for paid events.
 - Add events to Google Calendar: The app prompts users to authenticate with Google and grant calendar permissions. Once permission is granted, events will be added or modified automatically.
+
   **User Roles**
   Attendees: Can book events and view their event schedule from the dashboard.
   Organizers: Can create, manage, and delete their events, as well as view booked events in their dashboard.
+
   **Deletions**
+
 - Organizers can delete only the events they have created.
 - All users can delete their accounts at any time. This action will permanently remove all their personal data, including email addresses and any associated details, from the system.

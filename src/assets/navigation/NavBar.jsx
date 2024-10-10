@@ -35,7 +35,7 @@ export const NavBar = () => {
           {/* Login button */}
           {!user ? (
             <EmptyModal
-              btnDelMSG={"Get Started"}
+              btnDelMSG={"Log In"}
               input_styles={"bg-[#778da9] flex  w-full px-[.5rem] py-[.5rem]"}
             />
           ) : (

@@ -70,6 +70,12 @@ const AddEvent = (props) => {
                 Organizer: {loggedUserName}
               </h1>
             </div>
+            <div className={"mt-8"}>
+              <p>
+                Important: All the fields need to be completed with the relevant
+                information.
+              </p>
+            </div>
             <div className="my-8">
               <form>
                 <div className="flex flex-col gap-4">
@@ -158,13 +164,32 @@ const AddEvent = (props) => {
                     />
                   </div>
                   <div>
-                    <Button
-                      inner_text={"Post Event"}
-                      onClick={handlePostEvent}
-                      className={
-                        "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
-                      }
-                    />
+                    {!eventTitle ||
+                    !eventDescription ||
+                    !startTime ||
+                    !endTime ||
+                    !date ||
+                    !venue ||
+                    !price ||
+                    !address ||
+                    !city ||
+                    !postCode ? (
+                      <Button
+                        inner_text={"Post Event"}
+                        className={
+                          "disabled_btn border-2 px-5 py-3 whitespace-nowrap"
+                        }
+                      />
+                    ) : (
+                      <Button
+                        inner_text={"Post Event"}
+                        onClick={handlePostEvent}
+                        className={
+                          "booking_spot_btn border-2 px-5 py-3 whitespace-nowrap"
+                        }
+                      />
+                    )}
+
                     {isLoading && <p>Loading...</p>}
                     {error && <p>Error: {error.message}</p>}
                   </div>
