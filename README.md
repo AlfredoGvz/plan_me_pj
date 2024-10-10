@@ -81,10 +81,15 @@ If events are free of charge, just type in "free" in the Price field, otherwise 
 To test the purchase features, in the Events page, when clicking on "Book a Spot", users will be redirected to the checkout. Use the following details to proceed with the purchase:
 
 Email: test.email.events@gmail.com
+
 Card number: 4242 4242 4242 4242
+
 Expiration date: Any date user selects will work
+
 CVC: 424
+
 Cardholder name: Any name user selects will work
+
 Postal code: Any postal code user selects will work
 
 **Add Events to your Calendar**
