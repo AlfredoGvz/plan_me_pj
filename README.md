@@ -72,6 +72,10 @@ To create events as an organizer:
 4. Alternatively, you can access the event creation form by clicking "Add Event" in the navigation bar.
 5. After creating an event, navigate to the "Hosted Events" tab in your dashboard to view all the events you've created.
 
+**Add Events to your Calendar**
+
+Once users book an event, they can add it to their Google Calendar directly from the dashboard. Under the "Next Meetings" tab, a list of all upcoming events will be displayed, and next to each event, there will be an "Add To Calendar" button. Simply click the button to add the event to your calendar. Please note that before using this feature, users must grant the app permission to modify their Google Calendar.
+
 **Deletions**
 
 - Organizers can delete only the events they have created.
