@@ -42,6 +42,8 @@ npm run dev
 
 # Usage
 
+Note: When accessing the live app, it may take a few seconds for the backend to respond due to the free tier conditions on Render.
+
 Once the app is running locally or on the hosted site, users can:
 
 Create their own account, or log in to the app using the preset account:
