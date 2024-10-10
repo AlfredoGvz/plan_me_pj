@@ -5,6 +5,7 @@ Plan Me is a community-based web application that allows local businesses to sha
 This project was built using React + Vite, TailwindCSS, DaisyUI, and a custom Node.js API. It integrates the Google Calendar API for calendar management, allowing users to add events to their calendars after booking.
 
 Link to the hosted site: [Plan Me Web Application](https://plan-me-lp.netlify.app/?page=1)
+![Web App Logo](https://firebasestorage.googleapis.com/v0/b/bookstore-578c6.appspot.com/o/profileImages%2Flogo.jpg?alt=media&token=c0a0c8bf-e669-4727-90c9-9af4ca1a8e16)
 
 # Tech Stack
 
