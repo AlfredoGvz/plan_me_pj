@@ -5,10 +5,6 @@ import AddEvent from "../../pages/AddEvent";
 
 const NavBarLinks = (props) => {
   const { user } = useContext(MyContext);
-  console.log(
-    user?.data?.user?.dataTosend?.userInDB?.[0]?.user_role,
-    "khjgasjhfkgjh"
-  );
 
   let hidden = "";
   !user ? (hidden = "hidden") : (hidden = "block");

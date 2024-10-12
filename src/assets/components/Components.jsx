@@ -193,9 +193,6 @@ export function EmptyModal(props) {
     signUp(credentials); // Use signIn function here
   };
 
-  //Testing error messages
-  console.log(error, errorSignUp);
-
   return (
     <div>
       <Button
@@ -526,8 +523,6 @@ export function TabContentAtt(props) {
     setEventIdCal(event_id); // Set eventId
   };
 
-  console.log(props.booked_events);
-
   return (
     <div
       role="tablist"
@@ -614,18 +609,26 @@ export function PaginationUI(props) {
   const lastItmeIdFiltered =
     props.event_data[props.event_data.length - 1].event_id;
 
-  let page_param = parseInt(searchParams.get("page"));
+  let page_param = parseInt(searchParams.get("page")) || 1; // Default to 1 if undefined
+  let sortBy_param = searchParams.get("sortBy"); // Get the current sortBy param
   let totalPages = Math.ceil(props.all_events.length / 10);
 
   // Handle the page decrement
   const handlePrevPage = () => {
     if (page_param > 1) {
-      setSearchParams({ page: page_param - 1 });
+      // Retain all parameters and only update the page
+      const updatedParams = new URLSearchParams(searchParams);
+      updatedParams.set("page", page_param - 1); // Update page param
+      setSearchParams(updatedParams); // Apply updated params to the URL
+      window.location.reload();
     }
-    window.location.reload();
   };
+
+  // Handle the page increment
   const handleNextPage = () => {
-    setSearchParams({ page: page_param + 1 });
+    const updatedParams = new URLSearchParams(searchParams);
+    updatedParams.set("page", page_param + 1); // Update page param
+    setSearchParams(updatedParams); // Apply updated params to the URL
     window.location.reload();
   };
 

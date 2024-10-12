@@ -45,7 +45,7 @@ const Dashbooard = () => {
     setEndPointHosted("/api/get_hosted_events");
     setEndPointBooked("/api/get_booked_events");
   }, [hostedEvents, bookedEvents]);
-  console.log(calendar_activated);
+
   const firstName = name ? name.split(" ") : "";
   const navigate = useNavigate();
   const handleCalendarAuth = (endPointCal) => {

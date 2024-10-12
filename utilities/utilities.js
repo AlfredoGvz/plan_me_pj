@@ -5,7 +5,6 @@ export async function pingServer() {
   const response = await axios.get(
     "https://event-planing-project-api.onrender.com/api/ping"
   );
-  console.log(response);
 }
 
 export async function logOut() {

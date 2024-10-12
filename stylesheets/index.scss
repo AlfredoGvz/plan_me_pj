@@ -57,7 +57,36 @@ body {
 /*
 ** === SMALL COMPONENTS CLASSES ===
 */
+.sort_by_component {
+  height: fit-content;
+  border-image: linear-gradient(
+      to right,
+      #dcd5aa,
+      #e0d195,
+      #e5cb81,
+      #ebc56c,
+      #f3be58,
+      #f4b74b,
+      #f5af3e,
+      #f6a731,
+      #f09e28,
+      #e9961d,
+      #e38d11,
+      #dc8500
+    )
+    1;
+  border-image-slice: 1;
+  transition: border-image-width 0.3s ease-in-out,
+    border-image-source 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    transform 0.1s ease-in-out; // Add transition for transform
 
+  &:hover {
+    background-color: #373437;
+  }
+  ul > li > a {
+    background-color: red;
+  }
+}
 .event-tile-gradient-background {
   background-image: linear-gradient(
     to right,

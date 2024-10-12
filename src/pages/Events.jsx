@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGetEvents } from "../../utilities/customHooks";
 import { EventTile, PaginationUI } from "../assets/components/Components";
 import { handleNextTen, handlePreviousTen } from "../../utilities/utilities";
+import { SortByDsk } from "../assets/components/UserInteraction";
 
 const Events = () => {
   const [page, setPage] = useState(1);
@@ -23,11 +24,25 @@ const Events = () => {
       <div className="laptop:w-11/12 m-auto">
         <div className="flex justify-center">
           <div className="w-[20%] my-2 py-5">
-            <p className="text-[2.5rem] tablet:text-[3rem] vertical-text mx-[-1rem] laptop:mx-[0rem] fixed">
-              EVENTS
-            </p>
+            <div className="fixed">
+              <p className="text-[2.5rem] tablet:text-[3rem] vertical-text mx-[-1rem] laptop:mx-[0rem]">
+                EVENTS
+              </p>
+              <div className="hidden tablet:block">
+                <SortByDsk />
+              </div>
+            </div>
           </div>
           <div className="tablet:w-[60%] w-[67%] flex flex-col gap-4">
+            <div className="collapse bg-base-200  tablet:hidden">
+              <input type="checkbox" />
+              <div className="collapse-title text-lg font-small">
+                Sort Events
+              </div>
+              <div className="collapse-content">
+                <SortByDsk />
+              </div>
+            </div>
             {Array.isArray(eventsData) && eventsData.length > 0 ? ( // Check if eventsData is an array and not empty
               eventsData.map(
                 (

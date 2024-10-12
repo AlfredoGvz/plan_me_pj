@@ -105,7 +105,12 @@ const AddEvent = (props) => {
                     labelvalue={"Date"}
                     id={"date"}
                     type={"date"}
-                    onChange={(e) => setDate(e.target.value)}
+                    onChange={(e) => {
+                      const dateValue = e.target.value; // "yyyy-mm-dd"
+                      const [year, month, day] = dateValue.split("-"); // Split into year, month, day
+                      const formattedDate = `${day}-${month}-${year}`; // Reformat to "dd/mm/yyyy"
+                      setDate(formattedDate);
+                    }}
                     className={"flex gap-2 input input-bordered my-2"}
                   />
                   <div className="flex galp-2 tablet:w-[50%]">

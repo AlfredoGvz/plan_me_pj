@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 export function useSignIn(credentials) {
-  console.log(credentials);
-
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -33,7 +31,6 @@ export function useSignIn(credentials) {
       // Optionally reload the page to refresh the app state
       window.location.reload();
     } catch (error) {
-      console.log("the error", error.response.data.msg);
       if (error.response.data.msg.code === "auth/invalid-credential") {
         setError("Invalid Credentials");
         setTimeout(() => {
@@ -58,7 +55,6 @@ export function useSignIn(credentials) {
       setLoading(false); // Stop loading indicator
     }
   };
-  console.log(error);
 
   return { signIn, loading, error, userData };
 }
@@ -118,16 +114,22 @@ export function useGetEvents(endpoint, indexLast, filters) {
   const [allEvents, setAllEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const fiters = {
-    city: "Manchester",
-  };
+  // const fiters = {
+  //   city: "Manchester",
+  // };
   const [searchParams, setSearchParams] = useSearchParams();
 
-  if (!searchParams.get("page")) {
-    setSearchParams({ page: 1 });
-  }
+  useEffect(() => {
+    if (!searchParams.get("page")) {
+      setSearchParams({ page: 1 });
+    }
+  }, []); // Ensure this happens only on component mount.
 
   let page_params = searchParams.get("page");
+  let sort_by_params = searchParams.get("sortBy");
+  let order_params = searchParams.get("order");
+  let orderByArray = sort_by_params ? sort_by_params.split(",") : [];
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -144,13 +146,15 @@ export function useGetEvents(endpoint, indexLast, filters) {
               post_code: "",
               city: "",
               page: page_params || 1,
+              orderBy: orderByArray,
+              sortDirection: order_params,
             }, // Pass filters as query params
           }
         );
 
         if (response && response.data && response.data.events) {
           setEventsData(response.data.events); // Correctly set the data from response
-          setAllEvents(response.data.allEvenst);
+          setAllEvents(response.data.allEvents);
         }
       } catch (error) {
         setError(error);
@@ -160,7 +164,7 @@ export function useGetEvents(endpoint, indexLast, filters) {
     };
 
     fetchEvents();
-  }, [endpoint, filters]);
+  }, [endpoint, filters, searchParams]);
 
   return { eventsData, allEvents, isLoading, error };
 }
@@ -221,6 +225,7 @@ export function useLogIn(endpoint, credentials, send, setSend) {
 export function useSender(endpoint, event) {
   const [isLoading, setIsLoading] = useState(false); // Start as false
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Only attempt to send the event if event is defined
@@ -233,13 +238,14 @@ export function useSender(endpoint, event) {
           `https://event-planing-project-api.onrender.com${endpoint}`,
           event
         );
-        console.log("Event sent successfully", logger.data);
+        const eventId = logger.data.event_id;
+        navigate(`/events/${eventId}/details`);
+        window.location.reload();
       } catch (err) {
         setError(err);
         console.error("Error sending event:", err);
       } finally {
         setIsLoading(false); // Set loading to false after the request
-        window.location.reload();
       }
     };
 
@@ -262,7 +268,6 @@ export function useDeleteEvent(event_id) {
         const del = await axios.delete(
           `https://event-planing-project-api.onrender.com/api/${event_id}/delete_event`
         );
-        console.log("Event deleted successfully", del);
       } catch (err) {
         setErrorDel(err);
         console.error("Error deleting event:", err);
@@ -324,7 +329,7 @@ export function useGetHostedEvents(endpoint) {
         const response = await axios.get(
           `https://event-planing-project-api.onrender.com${endpoint}`
         );
-        console.log(response);
+
         setHostedEvents(response.data.myEvents); // Ensure you're accessing `myEvents` correctly from response
       } catch (error) {
         setError(error);
@@ -356,7 +361,7 @@ export function useGetBookedEvents(endpoint) {
           const response = await axios.get(
             `https://event-planing-project-api.onrender.com${endpoint}`
           );
-          console.log(response);
+
           setBookedEvents(response.data.userBookedEvents); // Ensure you're accessing `myEvents` correctly from response
         } catch (error) {
           setErrorBooked(error);
@@ -389,10 +394,9 @@ export function useActivateCalendar(endpointCalendar) {
         const response = await axios.get(
           `https://event-planing-project-api.onrender.com${endpointCalendar}`
         );
-        console.log("Response data:", response.data); // Log full response
+
         if (response.data && response.data.calendarURL) {
           setAuthURL(response.data.calendarURL);
-          console.log("Calendar URL:", response.data.calendarURL); // Log the calendarURL to verify it's correct
         } else {
           console.error("calendarURL is missing in response");
         }
@@ -404,7 +408,6 @@ export function useActivateCalendar(endpointCalendar) {
         const retrieveUpdatedUser = await axios.get(
           `https://event-planing-project-api.onrender.com/api/current_user`
         );
-        console.log(retrieveUpdatedUser.data);
       }
     };
 
@@ -431,10 +434,10 @@ export function useAddToGoogleCalendar(eventId) {
         const response = await axios.get(
           `https://event-planing-project-api.onrender.com/api/google_calendar/${eventId}/add_event`
         );
-        console.log("Response data:", response); // Log full response
+
         if (response.data) {
           setEventAddedURL(response.data);
-          console.log("Calendar URL:", response.data); // Log the calendarURL to verify it's correct
+
           window.location.reload();
         } else {
           console.error("calendarURL is missing in response");
