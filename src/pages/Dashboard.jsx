@@ -134,7 +134,7 @@ const Dashbooard = () => {
             <p className={"mb-6"}>
               By deleting your account, you will permanently lose access to all
               services associated with this app. This action will also remove
-              all your events and personal information from our records..
+              all your events and personal information from our records.
             </p>
 
             <Modal
