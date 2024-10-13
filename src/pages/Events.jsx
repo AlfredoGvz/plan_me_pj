@@ -34,13 +34,12 @@ const Events = () => {
             </div>
           </div>
           <div className="tablet:w-[60%] w-[67%] flex flex-col gap-4">
-            <div className="collapse bg-base-200">
+            <div className="collapse bg-base-200 flex tablet:hidden">
               <input type="checkbox" />
               <div className="collapse-title text-lg font-small">
                 Sort Events
               </div>
               <div className="collapse-content">
-                {" "}
                 <SortByDsk />
               </div>
             </div>
