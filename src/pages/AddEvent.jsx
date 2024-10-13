@@ -72,7 +72,7 @@ const AddEvent = (props) => {
             </div>
             <div className={"mt-8"}>
               <p>
-                Important: All the fields need to be completed with the relevant
+                Important: All the fields must be completed with the relevant
                 information.
               </p>
             </div>
