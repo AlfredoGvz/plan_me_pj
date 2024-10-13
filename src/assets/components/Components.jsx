@@ -452,7 +452,7 @@ export function TabContent(props) {
           props.booked_events.length > 0 ? (
             props.booked_events.map((currentItem, index) => (
               <div
-                className="mt-3 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] event-tile-classes"
+                className="mt-3 gap-4  text-[1.125rem] p-4 bg-cyan-800 w-[100%] event-tile-classes relative"
                 key={index}
               >
                 <div className="grid grid-cols-1 tablet:grid-cols-[50%_50%] laptop:grid-cols-[25%_30%_30%] laptop:justify-between laptop:w-[100%] w-[80%] mx-auto ">

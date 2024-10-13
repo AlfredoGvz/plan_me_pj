@@ -62,6 +62,7 @@ Creating your own account:
 **User Roles**
 
 Attendees: Can book events and view their event schedule from the dashboard.
+
 Organizers: Can create, manage, and delete their events, as well as view booked events in their dashboard.
 
 **Create Events**
