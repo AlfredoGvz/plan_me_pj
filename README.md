@@ -73,7 +73,7 @@ To create events as an organizer:
 2. From the dashboard, click on the "Add Event" button to open the event creation form.
 3. Fill in all the required fields. Every input field in the form must be completed as all fields are mandatory.
 4. Alternatively, you can access the event creation form by clicking "Add Event" in the navigation bar.
-5. After creating an event, navigate to the "Hosted Events" tab in your dashboard to view all the events you've created.
+5. Users will be redirected to the newly created event.
 
 If events are free of charge, just type in "free" in the Price field, otherwise specify the amount to pay.
 
