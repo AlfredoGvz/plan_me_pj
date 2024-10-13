@@ -40,7 +40,6 @@ const Dashbooard = () => {
     useGetBookedEvents(endPointBooked);
   const { authURL, authURLLoading, errorAuthURL } =
     useActivateCalendar(endPointCalendar);
-  console.log(bookedEvents);
 
   useEffect(() => {
     setEndPointHosted("/api/get_hosted_events");

@@ -129,7 +129,6 @@ export function useGetEvents(endpoint, indexLast, filters) {
   let sort_by_params = searchParams.get("sort_by");
   let order_params = searchParams.get("sort_order");
   let orderByArray = sort_by_params ? sort_by_params.split(",") : [];
-  console.log(orderByArray, order_params);
 
   useEffect(() => {
     const fetchEvents = async () => {

@@ -421,15 +421,6 @@ export function TabContent(props) {
                       {currentItem.start_time}
                     </p>
                   </div>
-
-                  {/* <div className=" mobile:mx-auto mt-7 laptop:my-auto tablet:col-span-2 laptop:col-span-1 ">
-                    <Modal
-                      btnDelMSG="DELETE EVENT"
-                      delMSG={`You are about to delete the event: "${currentItem.title}". This action cannot be undone.`}
-                      modal_id={"del_evn_mod"}
-                      handle_delete={() => handleDelete(currentItem.event_id)}
-                    />
-                  </div> */}
                 </div>
               </div>
             ))
@@ -608,7 +599,6 @@ export function PaginationUI(props) {
   const lastItemId = props.all_events[props.all_events.length - 1].event_id;
   const lastItmeIdFiltered =
     props.event_data[props.event_data.length - 1].event_id;
-  console.log(lastItmeIdFiltered);
 
   let page_param = parseInt(searchParams.get("page")) || 1; // Default to 1 if undefined
   let totalPages = Math.ceil(props.all_events.length / 10);

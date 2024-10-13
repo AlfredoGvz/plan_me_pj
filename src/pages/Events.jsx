@@ -8,8 +8,6 @@ const Events = () => {
   const [page, setPage] = useState(1);
   const { eventsData, allEvents, isLoading, error } =
     useGetEvents("/api/get_events");
-  console.log(allEvents);
-  console.log(eventsData);
 
   if (isLoading)
     return (
