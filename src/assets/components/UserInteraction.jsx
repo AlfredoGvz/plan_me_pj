@@ -75,86 +75,90 @@ export function SortByDsk() {
   };
 
   return (
-    <div className="hidden tablet:flex flex-col">
+    <div className="tablet:flex flex-col">
       <div className="divider"></div>
       <p>Sort Events</p>
 
-      {/* City Checkbox */}
-      <div className="flex gap-1">
-        <input
-          type="checkbox"
-          id="cityCheckbox"
-          value="city"
-          checked={isCityChecked}
-          onChange={(e) => {
-            setIsCityChecked(e.target.checked); // Update state first
-            handleSortBy(e.target.value, e.target.checked); // Then update search params
-          }}
-        />
-        <label htmlFor="cityCheckbox">City</label>
-      </div>
+      <div className="flex tablet:flex-col gap-4 tablet:gap-1 mt-3">
+        {/* City Checkbox */}
+        <div className="flex gap-1">
+          <input
+            type="checkbox"
+            id="cityCheckbox"
+            value="city"
+            checked={isCityChecked}
+            onChange={(e) => {
+              setIsCityChecked(e.target.checked); // Update state first
+              handleSortBy(e.target.value, e.target.checked); // Then update search params
+            }}
+          />
+          <label htmlFor="cityCheckbox">City</label>
+        </div>
 
-      {/* Date Checkbox */}
-      <div className="flex gap-1">
-        <input
-          type="checkbox"
-          id="dateCheckbox"
-          value="date"
-          checked={isDateChecked}
-          onChange={(e) => {
-            setIsDateChecked(e.target.checked); // Update state first
-            handleSortBy(e.target.value, e.target.checked); // Then update search params
-          }}
-        />
-        <label htmlFor="dateCheckbox">Date</label>
+        {/* Date Checkbox */}
+        <div className="flex gap-1">
+          <input
+            type="checkbox"
+            id="dateCheckbox"
+            value="date"
+            checked={isDateChecked}
+            onChange={(e) => {
+              setIsDateChecked(e.target.checked); // Update state first
+              handleSortBy(e.target.value, e.target.checked); // Then update search params
+            }}
+          />
+          <label htmlFor="dateCheckbox">Date</label>
+        </div>
       </div>
 
       <div>
         <div className="divider"></div>
         <p>Order Events</p>
 
-        {/* Ascending Checkbox */}
-        <div className="flex gap-1">
-          <input
-            type="radio"
-            id="ascCheckbox"
-            value="ASC"
-            checked={isAscChecked}
-            onChange={() => {
-              if (!isAscChecked) {
-                handleSortOrderChange("ASC");
-              } else {
-                // If ASC is already checked and clicked, uncheck it and remove from URL
-                setIsAscChecked(false);
-                const updatedParams = new URLSearchParams(searchParams);
-                updatedParams.delete("sort_order");
-                setSearchParams(updatedParams);
-              }
-            }}
-          />
-          <label htmlFor="ascCheckbox">Ascending</label>
-        </div>
+        <div className="flex tablet:flex-col gap-4 tablet:gap-1 mt-3">
+          {/* Ascending Checkbox */}
+          <div className="flex gap-1">
+            <input
+              type="radio"
+              id="ascCheckbox"
+              value="ASC"
+              checked={isAscChecked}
+              onChange={() => {
+                if (!isAscChecked) {
+                  handleSortOrderChange("ASC");
+                } else {
+                  // If ASC is already checked and clicked, uncheck it and remove from URL
+                  setIsAscChecked(false);
+                  const updatedParams = new URLSearchParams(searchParams);
+                  updatedParams.delete("sort_order");
+                  setSearchParams(updatedParams);
+                }
+              }}
+            />
+            <label htmlFor="ascCheckbox">Ascending</label>
+          </div>
 
-        {/* Descending Checkbox */}
-        <div className="flex gap-1">
-          <input
-            type="radio"
-            id="descCheckbox"
-            value="DESC"
-            checked={isDescChecked}
-            onChange={() => {
-              if (!isDescChecked) {
-                handleSortOrderChange("DESC");
-              } else {
-                // If DESC is already checked and clicked, uncheck it and remove from URL
-                setIsDescChecked(false);
-                const updatedParams = new URLSearchParams(searchParams);
-                updatedParams.delete("sort_order");
-                setSearchParams(updatedParams);
-              }
-            }}
-          />
-          <label htmlFor="descCheckbox">Descending</label>
+          {/* Descending Checkbox */}
+          <div className="flex gap-1">
+            <input
+              type="radio"
+              id="descCheckbox"
+              value="DESC"
+              checked={isDescChecked}
+              onChange={() => {
+                if (!isDescChecked) {
+                  handleSortOrderChange("DESC");
+                } else {
+                  // If DESC is already checked and clicked, uncheck it and remove from URL
+                  setIsDescChecked(false);
+                  const updatedParams = new URLSearchParams(searchParams);
+                  updatedParams.delete("sort_order");
+                  setSearchParams(updatedParams);
+                }
+              }}
+            />
+            <label htmlFor="descCheckbox">Descending</label>
+          </div>
         </div>
       </div>
     </div>
