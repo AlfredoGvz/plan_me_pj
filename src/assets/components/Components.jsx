@@ -608,9 +608,9 @@ export function PaginationUI(props) {
   const lastItemId = props.all_events[props.all_events.length - 1].event_id;
   const lastItmeIdFiltered =
     props.event_data[props.event_data.length - 1].event_id;
+  console.log(lastItmeIdFiltered);
 
   let page_param = parseInt(searchParams.get("page")) || 1; // Default to 1 if undefined
-  let sortBy_param = searchParams.get("sortBy"); // Get the current sortBy param
   let totalPages = Math.ceil(props.all_events.length / 10);
 
   // Handle the page decrement

@@ -25,8 +25,8 @@ export function SortByDsk() {
 
     // Set the sort order (ASC or DESC) from the URL
     if (order) {
-      setIsAscChecked(order === "ASC");
-      setIsDescChecked(order === "DESC");
+      setIsAscChecked(order === "ascending");
+      setIsDescChecked(order === "descending");
     }
   }, [searchParams]);
 
@@ -61,14 +61,14 @@ export function SortByDsk() {
   const handleSortOrderChange = (order) => {
     const updatedParams = new URLSearchParams(searchParams);
 
-    if (order === "ASC") {
+    if (order === "ascending") {
       setIsAscChecked(true);
       setIsDescChecked(false); // Uncheck "DESC"
-      updatedParams.set("sort_order", "ASC");
-    } else if (order === "DESC") {
+      updatedParams.set("sort_order", "ascending");
+    } else if (order === "descending") {
       setIsAscChecked(false); // Uncheck "ASC"
       setIsDescChecked(true);
-      updatedParams.set("sort_order", "DESC");
+      updatedParams.set("sort_order", "descending");
     }
 
     setSearchParams(updatedParams);
@@ -121,11 +121,11 @@ export function SortByDsk() {
             <input
               type="radio"
               id="ascCheckbox"
-              value="ASC"
+              value="ascending"
               checked={isAscChecked}
               onChange={() => {
                 if (!isAscChecked) {
-                  handleSortOrderChange("ASC");
+                  handleSortOrderChange("ascending");
                 } else {
                   // If ASC is already checked and clicked, uncheck it and remove from URL
                   setIsAscChecked(false);
@@ -147,7 +147,7 @@ export function SortByDsk() {
               checked={isDescChecked}
               onChange={() => {
                 if (!isDescChecked) {
-                  handleSortOrderChange("DESC");
+                  handleSortOrderChange("descending");
                 } else {
                   // If DESC is already checked and clicked, uncheck it and remove from URL
                   setIsDescChecked(false);
